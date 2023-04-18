@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cuit.mapper.DishesMapper">
+
+    <select id="queryDishesBySid" resultType="Dishes">
+        select * from canteendb.dishes where sid = #{sid}
+    </select>
+
+    <select id="queryAllDishes" resultType="Dishes">
+        select * from canteendb.dishes where did = #{did}
+    </select>
+</mapper>

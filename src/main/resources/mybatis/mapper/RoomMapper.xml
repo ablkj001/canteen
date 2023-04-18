@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cuit.mapper.RoomMapper">
+
+    <select id="queryRoomList" resultType="Room">
+        select * from canteendb.room
+    </select>
+
+    <insert id="addRoom" parameterType="Room">
+        insert into canteendb.room(rname,date)
+        values (#{rname},#{date})
+    </insert>
+
+    <delete id="deleteRoom" parameterType="int">
+        delete from canteendb.room where rid = #{rid}
+    </delete>
+</mapper>

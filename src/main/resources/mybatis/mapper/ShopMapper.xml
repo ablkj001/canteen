@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cuit.mapper.ShopMapper">
+
+    <select id="queryShopByRid" resultType="Shop">
+        select * from canteendb.shop where rid = #{rid}
+    </select>
+
+    <insert id="addShop" parameterType="Shop">
+        insert into canteendb.shop(sname, rid, location, manager, tel)
+        values (#{sname},#{rid},#{location},#{manager},#{tel})
+    </insert>
+
+    <delete id="deleteShop" parameterType="int">
+        delete from canteendb.shop where sid = #{sid}
+    </delete>
+</mapper>
