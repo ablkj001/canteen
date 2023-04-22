@@ -4,6 +4,7 @@ import com.cuit.mapper.UserMapper;
 import com.cuit.pojo.User;
 import com.cuit.service.UserService;
 import com.cuit.util.LoginResultEnum;
+import com.cuit.util.RegisterResultEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     LoginResultEnum loginResultEnum = null;
+
+    RegisterResultEnum registerResultEnum =null;
 
     @Override
     public List<User> queryUserList() {
@@ -60,5 +63,17 @@ public class UserServiceImpl implements UserService {
             loginResultEnum = LoginResultEnum.PASSWORD_ERROR;      //密码错误
         }
         return loginResultEnum;
+    }
+
+    @Override
+    public RegisterResultEnum add(User user) {
+        if(userMapper.queryUserByUname(user.getUname())!=null){
+            registerResultEnum = RegisterResultEnum.USERNAME_DUPLICATED; //用户名存在
+        }
+        else {
+            userMapper.addUser(user.getUname(),user.getPwd(),user.getTel(),user.getFlag());
+            registerResultEnum = RegisterResultEnum.SUCCESS;        //注册成功
+        }
+        return registerResultEnum;
     }
 }

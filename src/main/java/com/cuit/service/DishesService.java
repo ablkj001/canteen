@@ -11,4 +11,7 @@ public interface DishesService {
 
     //随机获取7个不同的商品
     List<Dishes> queryRandomDished();
+
+    //根据did获取商品
+    Dishes queryDishesByDid(Integer did);
 }

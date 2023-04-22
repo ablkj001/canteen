@@ -8,5 +8,7 @@ public interface CommentService {
 
     List<Comment> queryAllComment();
 
+    List<Comment> queryCommentByDid(Integer did);
+
     Integer addComment(Comment comment);
 }

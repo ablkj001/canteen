@@ -9,7 +9,17 @@
         select * from canteendb.dishes where sid = #{sid}
     </select>
 
-    <select id="queryAllDishes" resultType="Dishes">
+    <select id="queryDishesByDid" resultType="Dishes">
         select * from canteendb.dishes where did = #{did}
     </select>
+
+    <insert id="addDishes" parameterType="Dishes">
+        insert into canteendb.dishes(dname, dprice, dimage, sid, detail)
+        values (#{dname},#{dprice},#{dimage},#{sid},#{detail})
+    </insert>
+
+    <delete id="deleteDishes" parameterType="int">
+        delete from dishes
+        where did = #{did}
+    </delete>
 </mapper>

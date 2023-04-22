@@ -17,4 +17,9 @@
     <delete id="deleteShop" parameterType="int">
         delete from canteendb.shop where sid = #{sid}
     </delete>
+
+    <select id="queryShopBySid" resultType="Shop">
+        select * from canteendb.shop
+        where sid = #{sid}
+    </select>
 </mapper>

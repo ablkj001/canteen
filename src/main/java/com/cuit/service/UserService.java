@@ -2,6 +2,7 @@ package com.cuit.service;
 
 import com.cuit.pojo.User;
 import com.cuit.util.LoginResultEnum;
+import com.cuit.util.RegisterResultEnum;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface UserService {
     User queryUserByUame(String uname);
 
     public LoginResultEnum checkLogin(User user);
+
+    public RegisterResultEnum add(User user);
 }

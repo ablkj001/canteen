@@ -22,7 +22,7 @@ public interface UserMapper {
     User queryUserByUname(@Param("uname") String uname);
 
     //添加用户
-    Integer addUser(User user);
+    Integer addUser(@Param("uname") String uname,@Param("pwd") String pwd,@Param("flag") String flag,@Param("tel") String tel);
 
     //更新用户
     Integer updateUser(User user);

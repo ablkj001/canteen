@@ -3,10 +3,12 @@ package com.cuit.controller;
 import com.cuit.pojo.User;
 import com.cuit.service.Impl.UserServiceImpl;
 import com.cuit.util.LoginResultEnum;
+import com.cuit.util.RegisterResultEnum;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -44,12 +46,34 @@ public class LoginController {
         return loginResult;
     }
 
-    @RequestMapping("/user/xq")
+    @RequestMapping("/user/info")
     @ResponseBody
-    public User getUser(@RequestBody Map map){
-        String uname = map.get("token").toString();
-        System.out.println("进入！");
-        User user = userService.queryUserByUame(uname);
-        return user;
+    public JSONObject getUser(@RequestHeader("Authorization") String token){
+        User user = userService.queryUserByUame(token);
+        JSONObject get = new JSONObject();
+        get.put("data",user);
+        get.put("code",0);
+        return get;
+    }
+
+    @RequestMapping("/user/regist")
+    @ResponseBody
+    public JSONObject Regist(@RequestBody Map map){
+        JSONObject registResult = new JSONObject();
+        String uname = map.get("username").toString();
+        String pwd = map.get("password").toString();
+        String tel = map.get("tel").toString();
+        String flag = map.get("usertype").toString();
+        User user = new User(uname,pwd,tel,flag);
+        RegisterResultEnum resultEnum = userService.add(user);
+        if (resultEnum.equals(RegisterResultEnum.USERNAME_DUPLICATED)){
+            registResult.put("message","用户名已存在！");
+            registResult.put("code",1);
+            return registResult;
+        }else {
+            registResult.put("message","注册成功！");
+            registResult.put("code",0);
+            return registResult;
+        }
     }
 }

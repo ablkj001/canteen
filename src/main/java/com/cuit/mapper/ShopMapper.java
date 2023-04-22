@@ -18,4 +18,7 @@ public interface ShopMapper {
 
     //删除店铺
     Integer deleteShop(Integer sid);
+
+    //根据sid查找店铺
+    Shop queryShopBySid(Integer sid);
 }

@@ -11,4 +11,6 @@ public interface ShopService {
     Integer addShop(Shop shop);
 
     Integer deleteShop(Integer sid);
+
+    Shop queryShopBySid(Integer sid);
 }

@@ -13,6 +13,9 @@ public interface CommentMapper {
     //获取所有评论
     List<Comment> queryAllComment();
 
+    //根据菜品获取评论
+    List<Comment> queryCommentByDid(Integer did);
+
     //添加评论
     Integer addComment(Comment comment);
 }

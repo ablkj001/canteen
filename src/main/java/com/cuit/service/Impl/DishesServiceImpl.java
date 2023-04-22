@@ -24,4 +24,10 @@ public class DishesServiceImpl implements DishesService {
     public List<Dishes> queryRandomDished() {
         return null;
     }
+
+    @Override
+    public Dishes queryDishesByDid(Integer did) {
+        Dishes dishes = dishesMapper.queryDishesByDid(did);
+        return dishes;
+    }
 }

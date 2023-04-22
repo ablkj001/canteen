@@ -12,6 +12,14 @@ public class Dishes {
     public Dishes() {
     }
 
+    public Dishes(String dname, Integer dprice, String dimage, Integer sid, String detail) {
+        this.dname = dname;
+        this.dprice = dprice;
+        this.dimage = dimage;
+        this.sid = sid;
+        this.detail = detail;
+    }
+
     public Dishes(Integer did, String dname, Integer dprice, String dimage, Integer sid, String detail) {
         this.did = did;
         this.dname = dname;

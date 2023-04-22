@@ -17,6 +17,13 @@ public class User {
         this.pwd = pwd;
     }
 
+    public User(String uname, String pwd, String flag, String tel) {
+        this.uname = uname;
+        this.pwd = pwd;
+        this.flag = flag;
+        this.tel = tel;
+    }
+
     public User(Integer uid, String uname, String pwd, String flag, String tel, String uavatar) {
         this.uid = uid;
         this.uname = uname;

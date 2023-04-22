@@ -18,8 +18,8 @@
     </select>
 
     <insert id="addUser" parameterType="User">
-        insert into canteendb.user(uname,pwd,flag,tel,uavatar)
-        values (#{uname},#{pwd},#{flag},#{tel},#{uavatar})
+        insert into canteendb.user(uname,pwd,flag,tel)
+        values (#{uname},#{pwd},#{flag},#{tel})
     </insert>
 
     <update id="updateUser" parameterType="User">

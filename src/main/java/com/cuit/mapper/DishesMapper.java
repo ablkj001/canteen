@@ -14,5 +14,11 @@ public interface DishesMapper {
     List<Dishes> queryDishesBySid(Integer sid);
 
     //通过did获取商品
-    List<Dishes> queryDishesByDid(Integer did);
+    Dishes queryDishesByDid(Integer did);
+
+    //添加菜品
+    Integer addDishes(Dishes dishes);
+
+    //下架菜品
+    Integer deleteDishes(Integer did);
 }

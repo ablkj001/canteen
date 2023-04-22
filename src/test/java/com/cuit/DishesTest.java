@@ -1,7 +1,7 @@
 package com.cuit;
 
-import com.cuit.pojo.Shop;
-import com.cuit.service.Impl.ShopServiceImpl;
+import com.cuit.mapper.DishesMapper;
+import com.cuit.pojo.Dishes;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Test;
 import org.junit.runners.MethodSorters;
@@ -15,12 +15,13 @@ import java.util.List;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)  //按照指定方法运行
-public class ShopTest {
+public class DishesTest {
 
     @Autowired
     DataSource dataSource;
+
     @Autowired
-    ShopServiceImpl shopService;
+    private DishesMapper dishesMapper;
 
     @Test
     void test() throws SQLException {
@@ -31,18 +32,19 @@ public class ShopTest {
 
     @Test
     public void testA(){
-        List<Shop> shops = shopService.queryShopByRid(1);
+        List<Dishes> dishes = dishesMapper.queryDishesBySid(4);
+        System.out.println(dishes);
     }
 
     @Test
     public void testB(){
-        Shop shop = new Shop("风味小炒",1,"一楼中间","金代龙","12345678910");
-        Integer i = shopService.addShop(shop);
-        List<Shop> shops = shopService.queryShopByRid(1);
+        Dishes dishes = dishesMapper.queryDishesByDid(5);
+        System.out.println(dishes);
     }
 
     @Test
     public void testC(){
-        Integer i = shopService.deleteShop(3);
+        Dishes dishes = new Dishes("清汤饺",12,"",5,"");
+        Integer i = dishesMapper.addDishes(dishes);
     }
 }

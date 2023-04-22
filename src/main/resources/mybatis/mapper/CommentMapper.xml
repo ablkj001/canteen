@@ -13,4 +13,8 @@
         insert into canteendb.comment (did, uid, sid, date, detail)
         values (#{did},#{uid},#{sid},#{date},#{detail})
     </insert>
+
+    <select id="queryCommentByDid" resultType="Comment">
+        select * from canteendb.comment where did = #{did}
+    </select>
 </mapper>

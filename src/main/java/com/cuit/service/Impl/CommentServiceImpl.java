@@ -21,6 +21,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public List<Comment> queryCommentByDid(Integer did) {
+        List<Comment> comments = commentMapper.queryCommentByDid(did);
+        return comments;
+    }
+
+    @Override
     public Integer addComment(Comment comment) {
         Integer i = commentMapper.addComment(comment);
         return i;

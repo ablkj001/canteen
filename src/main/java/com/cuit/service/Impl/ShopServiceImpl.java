@@ -31,4 +31,10 @@ public class ShopServiceImpl implements ShopService {
         Integer i =shopMapper.deleteShop(sid);
         return i;
     }
+
+    @Override
+    public Shop queryShopBySid(Integer sid) {
+        Shop shop = shopMapper.queryShopBySid(sid);
+        return shop;
+    }
 }
