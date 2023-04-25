@@ -2,6 +2,7 @@ package com.cuit;
 
 import com.cuit.mapper.DishesMapper;
 import com.cuit.pojo.Dishes;
+import com.cuit.service.DishesService;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Test;
 import org.junit.runners.MethodSorters;
@@ -23,6 +24,9 @@ public class DishesTest {
     @Autowired
     private DishesMapper dishesMapper;
 
+    @Autowired
+    private DishesService dishesService;
+
     @Test
     void test() throws SQLException {
         System.out.println(dataSource.getClass());
@@ -32,13 +36,13 @@ public class DishesTest {
 
     @Test
     public void testA(){
-        List<Dishes> dishes = dishesMapper.queryDishesBySid(4);
+        List<Dishes> dishes = dishesMapper.queryDishesBySid(4,0);
         System.out.println(dishes);
     }
 
     @Test
     public void testB(){
-        Dishes dishes = dishesMapper.queryDishesByDid(5);
+        Dishes dishes = dishesMapper.queryDishesByDid(5,0);
         System.out.println(dishes);
     }
 
@@ -46,5 +50,10 @@ public class DishesTest {
     public void testC(){
         Dishes dishes = new Dishes("清汤饺",12,"",5,"");
         Integer i = dishesMapper.addDishes(dishes);
+    }
+
+    @Test
+    public void testD(){
+        List<Dishes> dishes = dishesService.queryRandomDished();
     }
 }

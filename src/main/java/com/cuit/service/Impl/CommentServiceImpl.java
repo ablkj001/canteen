@@ -31,4 +31,16 @@ public class CommentServiceImpl implements CommentService {
         Integer i = commentMapper.addComment(comment);
         return i;
     }
+
+    @Override
+    public List<Comment> queryCommentByPage(Integer currPage,Integer did) {
+        List<Comment> comments = commentMapper.queryCommentByPage(currPage,did);
+        return comments;
+    }
+
+    @Override
+    public Integer CountCommentsByDid(Integer did) {
+        List<Comment> comments = commentMapper.queryCommentByDid(did);
+        return comments.size();
+    }
 }

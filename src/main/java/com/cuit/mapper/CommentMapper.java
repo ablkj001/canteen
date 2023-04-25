@@ -2,6 +2,7 @@ package com.cuit.mapper;
 
 import com.cuit.pojo.Comment;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +19,7 @@ public interface CommentMapper {
 
     //添加评论
     Integer addComment(Comment comment);
+
+    //根据页数查询评论
+    List<Comment> queryCommentByPage(@Param("page") Integer page,@Param("did") Integer did);
 }

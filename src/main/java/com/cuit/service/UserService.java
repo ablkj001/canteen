@@ -18,7 +18,7 @@ public interface UserService {
 
     User queryUserByUame(String uname);
 
-    public LoginResultEnum checkLogin(User user);
+    LoginResultEnum checkLogin(User user);
 
-    public RegisterResultEnum add(User user);
+    RegisterResultEnum add(User user);
 }

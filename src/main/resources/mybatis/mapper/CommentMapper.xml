@@ -17,4 +17,10 @@
     <select id="queryCommentByDid" resultType="Comment">
         select * from canteendb.comment where did = #{did}
     </select>
+
+    <select id="queryCommentByPage" resultType="Comment">
+        select * from canteendb.comment
+        where did = #{did}
+        limit ${7*(page-1)},7
+    </select>
 </mapper>

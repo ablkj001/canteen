@@ -7,8 +7,16 @@ public class ShopCar {
     private Integer did;        //菜品ID
     private Integer sid;        //店铺ID
     private Integer count;      //菜品数量
+    private Integer status = 1;     //购物车勾选状态,1为未勾选，0为已勾选
 
     public ShopCar() {
+    }
+
+    public ShopCar(Integer uid, Integer did, Integer sid, Integer count) {
+        this.uid = uid;
+        this.did = did;
+        this.sid = sid;
+        this.count = count;
     }
 
     public ShopCar(Integer carid, Integer uid, Integer did, Integer sid, Integer count) {
@@ -19,6 +27,12 @@ public class ShopCar {
         this.count = count;
     }
 
+    public ShopCar(Integer uid, Integer did, Integer sid) {
+        this.uid = uid;
+        this.did = did;
+        this.sid = sid;
+    }
+
     @Override
     public String toString() {
         return "ShopCar{" +
@@ -27,7 +41,16 @@ public class ShopCar {
                 ", did=" + did +
                 ", sid=" + sid +
                 ", count=" + count +
+                ", status=" + status +
                 '}';
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getCarid() {

@@ -1,11 +1,14 @@
 package com.cuit.controller;
 
+import com.cuit.combine.CP;
+import com.cuit.combine.DS;
 import com.cuit.combine.SD;
 import com.cuit.pojo.Comment;
 import com.cuit.pojo.Dishes;
 import com.cuit.pojo.Shop;
 import com.cuit.service.CommentService;
 import com.cuit.service.DishesService;
+import com.cuit.service.ShopService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,9 @@ public class DishesController {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private ShopService shopService;
+
     @RequestMapping("/dishes")
     @ResponseBody
     public JSONObject getDishesByDid(@RequestBody Map map, @RequestHeader("Authorization") String token) {
@@ -34,9 +40,11 @@ public class DishesController {
             json.put("data", null);
             json.put("code", 1);
         } else {
-            Integer did = Integer.parseInt(map.get("did").toString());
+            Integer did = Integer.parseInt(map.get("foodID").toString());
             Dishes dishes = dishesService.queryDishesByDid(did);
-            json.put("data", dishes);
+            Shop shop = shopService.queryShopBySid(dishes.getSid());
+            DS ds = new DS(dishes.getDid(),dishes.getDname(),dishes.getDprice(),dishes.getDimage(),dishes.getSid(),shop.getSname(),dishes.getDetail(),dishes.getStatus());
+            json.put("data", ds);
             json.put("code", 0);
         }
         return json;
@@ -50,9 +58,12 @@ public class DishesController {
             json.put("data", null);
             json.put("code", 1);
         } else {
-            Integer did = Integer.parseInt(map.get("did").toString());
-            List<Comment> comments = commentService.queryCommentByDid(did);
-            json.put("data", comments);
+            Integer did = Integer.parseInt(map.get("foodID").toString());
+            Integer page = Integer.parseInt(map.get("pagenum").toString());
+            List<Comment> comments = commentService.queryCommentByPage(page,did);
+            Integer i = commentService.CountCommentsByDid(did);
+            CP cp = new CP(i,comments);
+            json.put("data", cp);
             json.put("code", 0);
         }
         return json;
@@ -60,8 +71,16 @@ public class DishesController {
 
     @RequestMapping("/dishes/random")
     @ResponseBody
-    public List<Dishes> getRandomDishes() {
-        List<Dishes> dishes = dishesService.queryRandomDished();
-        return dishes;
+    public JSONObject getRandomDishes(@RequestHeader("Authorization") String token) {
+        JSONObject json = new JSONObject();
+        if (token == null) {
+            json.put("data", null);
+            json.put("code", 1);
+        } else {
+            List<Dishes> dishes = dishesService.queryRandomDished();
+            json.put("data",dishes);
+            json.put("code",0);
+        }
+        return json;
     }
 }

@@ -3,6 +3,42 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="">
+<mapper namespace="com.cuit.mapper.ShopCarMapper">
 
+    <select id="queryShopcarByUid" resultType="ShopCar">
+        select * from canteendb.shopcar where uid = #{uid}
+    </select>
+
+    <delete id="deleteShopCar" parameterType="int">
+        delete from canteendb.shopcar
+        where carid = #{carid}
+    </delete>
+
+    <insert id="addShopCar" parameterType="ShopCar">
+        insert into canteendb.shopcar(uid, did, sid, count)
+        values (#{uid},#{did},#{sid},#{count})
+    </insert>
+
+    <select id="countShopCarByDid" resultType="int">
+        select count from canteendb.shopcar
+        where did = #{did} and uid = #{uid}
+    </select>
+
+    <update id="updateShopCarByDid" parameterType="int">
+        update canteendb.shopcar
+        set count = count + #{count}
+        where did = #{did} and uid = #{uid}
+    </update>
+
+    <update id="updateShopCar" parameterType="int">
+        update canteendb.shopcar
+        set count = #{count}
+        where did = #{did} and uid = #{uid}
+    </update>
+
+    <update id="updateShopCarStatus" parameterType="int">
+        update canteendb.shopcar
+        set status = #{status}
+        where did = #{did} and uid = #{uid}
+    </update>
 </mapper>

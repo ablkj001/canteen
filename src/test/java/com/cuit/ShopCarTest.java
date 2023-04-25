@@ -1,9 +1,9 @@
 package com.cuit;
 
-import com.cuit.controller.CommentController;
-import com.cuit.mapper.CommentMapper;
-import com.cuit.pojo.Comment;
-import com.cuit.service.CommentService;
+import com.cuit.mapper.ShopCarMapper;
+import com.cuit.pojo.ShopCar;
+import com.cuit.service.ShopCarService;
+import com.cuit.service.ShopService;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Test;
 import org.junit.runners.MethodSorters;
@@ -13,21 +13,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)  //按照指定方法运行
-public class CommentTest {
+public class ShopCarTest {
 
     @Autowired
     DataSource dataSource;
 
     @Autowired
-    CommentMapper commentMapper;
+    ShopCarMapper shopCarMapper;
 
     @Autowired
-    CommentService commentService;
+    ShopCarService shopCarService;
 
     @Test
     void test() throws SQLException {
@@ -38,21 +37,25 @@ public class CommentTest {
 
     @Test
     public void testA(){
-        Comment comment = new Comment(1,2,1,new Date(),"测试");
-        Integer i = commentMapper.addComment(comment);
-        List<Comment> comments = commentMapper.queryAllComment();
+        ShopCar shopCar = new ShopCar(7,5,4,1);
+        Integer i = shopCarService.addShopCar(shopCar);
+        System.out.println(i);
     }
 
     @Test
     public void testB(){
-        Integer i = commentService.CountCommentsByDid(1);
-        List<Comment> comments = commentService.queryCommentByPage(1,1);
-        System.out.println(i);
-        System.out.println(comments);
+        List<ShopCar> shopCars = shopCarService.queryShopcarByUid(7);
     }
 
     @Test
     public void testC(){
-        List<Comment> comments = commentMapper.queryCommentByPage(4,1);
+        Integer i = shopCarMapper.countShopCarByDid(1,7);
+        System.out.println(i);
+    }
+
+    @Test
+    public void testD(){
+        Integer i = shopCarMapper.updateShopCarByDid(5,7,2);
+        List<ShopCar> shopCars = shopCarMapper.queryShopcarByUid(7);
     }
 }

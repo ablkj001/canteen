@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cuit.mapper.OrderMapper">
+
+    <select id="queryOrderByOnumber" resultType="Order">
+        select * from canteendb."order"
+        where onumber = #{onumber}
+    </select>
+
+    <insert id="addOrder" parameterType="Order">
+        insert into canteendb."order"(onumber, uid, did, payment, quantity, status)
+        values (#{onumber},#{uid},#{did},#{payment},#{quantity},#{status})
+    </insert>
+
+    <delete id="deleteOrder" parameterType="int">
+        delete from canteendb."order"
+        where onumber = #{onumber}
+    </delete>
+
+    <select id="queryOrderByUid" resultType="Order">
+        select * from canteendb."order"
+        where uid = #{uid}
+    </select>
+</mapper>

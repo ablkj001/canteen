@@ -11,4 +11,8 @@ public interface CommentService {
     List<Comment> queryCommentByDid(Integer did);
 
     Integer addComment(Comment comment);
+
+    List<Comment> queryCommentByPage(Integer currPage,Integer did);
+
+    Integer CountCommentsByDid(Integer did);
 }
