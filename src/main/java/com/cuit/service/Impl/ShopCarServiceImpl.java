@@ -6,6 +6,7 @@ import com.cuit.service.ShopCarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -46,17 +47,27 @@ public class ShopCarServiceImpl implements ShopCarService {
 
     @Override
     public Integer updateShopCar(ShopCar shopCar) {
-        Integer i = shopCarMapper.updateShopCar(shopCar.getDid(), shopCar.getUid(), shopCar.getCount());
+        Integer i = 0;
+        //如果原先购物车中没有该菜品则直接添加菜品到购物车中
+        Integer count = shopCarMapper.countShopCarByDid(shopCar.getDid(), shopCar.getUid());
+        if(count == null){
+            count = 0;
+        }
+        if (count + shopCar.getCount() <= 20){
+            i = shopCarMapper.updateShopCar(shopCar.getDid(), shopCar.getUid(), shopCar.getCount());
+        }
         return i;
     }
 
     @Override
     public Integer updateShopCarStatus(ShopCar shopCar) {
-        if (shopCarMapper.countShopCarByDid(shopCar.getDid(), shopCar.getUid()) > 20) {
-            return 0;
-        } else {
-            Integer i = shopCarMapper.updateShopCarStatus(shopCar.getDid(), shopCar.getUid(), 0);
-            return i;
-        }
+        Integer i = shopCarMapper.updateShopCarStatus(shopCar.getDid(), shopCar.getUid(), shopCar.getStatus());
+        return i;
+    }
+
+    @Override
+    public ShopCar queryShopCar(Integer carid) {
+        ShopCar shopCar = shopCarMapper.queryShopCar(carid);
+        return shopCar;
     }
 }

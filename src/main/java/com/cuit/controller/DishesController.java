@@ -32,6 +32,7 @@ public class DishesController {
     @Autowired
     private ShopService shopService;
 
+    //显示菜品列表
     @RequestMapping("/dishes")
     @ResponseBody
     public JSONObject getDishesByDid(@RequestBody Map map, @RequestHeader("Authorization") String token) {
@@ -50,6 +51,7 @@ public class DishesController {
         return json;
     }
 
+    //显示当前菜品下相应的评论
     @RequestMapping("/dishes/comment")
     @ResponseBody
     public JSONObject getCommentByDid(@RequestBody Map map, @RequestHeader("Authorization") String token) {
@@ -69,6 +71,7 @@ public class DishesController {
         return json;
     }
 
+    //根据随机数生成首页的七张推介菜品
     @RequestMapping("/dishes/random")
     @ResponseBody
     public JSONObject getRandomDishes(@RequestHeader("Authorization") String token) {

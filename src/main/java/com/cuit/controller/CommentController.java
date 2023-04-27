@@ -20,6 +20,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    //查询评论
     @RequestMapping("/comment")
     @ResponseBody
     public List<Comment> getCommentByDishes(@RequestBody Map map){
@@ -28,6 +29,7 @@ public class CommentController {
         return comments;
     }
 
+    //添加评论
     @RequestMapping("/comment/add")
     @ResponseBody
     public JSONObject addComment(@RequestBody Map map,@RequestHeader("Authorization") String token){

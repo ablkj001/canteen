@@ -16,7 +16,7 @@ public class DishesServiceImpl implements DishesService {
 
     @Override
     public List<Dishes> queryDishesBySid(Integer sid) {
-        List<Dishes> dishes = dishesMapper.queryDishesBySid(sid,0);
+        List<Dishes> dishes = dishesMapper.queryDishesBySid(sid);
         return dishes;
     }
 
@@ -33,7 +33,7 @@ public class DishesServiceImpl implements DishesService {
         }
         List<Dishes> dishesList = new ArrayList<>();
         for (Integer did:set){
-            Dishes dishes = dishesMapper.queryDishesByDid(did,0);
+            Dishes dishes = dishesMapper.queryDishesByDid(did);
             dishesList.add(dishes);
         }
         System.out.println(dishesList);
@@ -42,7 +42,13 @@ public class DishesServiceImpl implements DishesService {
 
     @Override
     public Dishes queryDishesByDid(Integer did) {
-        Dishes dishes = dishesMapper.queryDishesByDid(did,0);
+        Dishes dishes = dishesMapper.queryDishesByDid(did);
+        return dishes;
+    }
+
+    @Override
+    public List<Dishes> queryDishesByStatus(Integer sid) {
+        List<Dishes> dishes = dishesMapper.queryDishesByDstatus(sid);
         return dishes;
     }
 }

@@ -6,11 +6,11 @@
 <mapper namespace="com.cuit.mapper.DishesMapper">
 
     <select id="queryDishesBySid" resultType="Dishes">
-        select * from canteendb.dishes where sid = #{sid} and status = #{status}
+        select * from canteendb.dishes where sid = #{sid}
     </select>
 
     <select id="queryDishesByDid" resultType="Dishes">
-        select * from canteendb.dishes where did = #{did} and status = #{status}
+        select * from canteendb.dishes where did = #{did}
     </select>
 
     <insert id="addDishes" parameterType="Dishes">
@@ -25,5 +25,9 @@
 
     <select id="queryAllDishes" resultType="Dishes">
         select * from canteendb.dishes
+    </select>
+
+    <select id="queryDishesByDstatus" resultType="Dishes">
+        select * from canteendb.dishes where sid = #{sid} and status = 0
     </select>
 </mapper>

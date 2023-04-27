@@ -32,7 +32,7 @@
 
     <update id="updateShopCar" parameterType="int">
         update canteendb.shopcar
-        set count = #{count}
+        set count = count + #{count}
         where did = #{did} and uid = #{uid}
     </update>
 
@@ -41,4 +41,8 @@
         set status = #{status}
         where did = #{did} and uid = #{uid}
     </update>
+
+    <select id="queryShopCar" resultType="ShopCar">
+        select * from canteendb.shopcar where carid = #{carid}
+    </select>
 </mapper>

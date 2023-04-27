@@ -2,7 +2,10 @@ package com.cuit.combine;
 
 public class SC {
 
+    private Integer carid;
+    private Integer sid;
     private String sname;
+    private Integer did;
     private String dname;
     private String dimage;
     private Integer dprice;
@@ -10,17 +13,41 @@ public class SC {
     private Integer count;
     private Integer status;
 
-    @Override
-    public String toString() {
-        return "SC{" +
-                "sname='" + sname + '\'' +
-                ", dname='" + dname + '\'' +
-                ", dimage='" + dimage + '\'' +
-                ", dprice=" + dprice +
-                ", dstatus=" + dstatus +
-                ", count=" + count +
-                ", status=" + status +
-                '}';
+    public SC(Integer carid, Integer sid, String sname, Integer did, String dname, String dimage, Integer dprice, Integer dstatus, Integer count, Integer status) {
+        this.carid = carid;
+        this.sid = sid;
+        this.sname = sname;
+        this.did = did;
+        this.dname = dname;
+        this.dimage = dimage;
+        this.dprice = dprice;
+        this.dstatus = dstatus;
+        this.count = count;
+        this.status = status;
+    }
+
+    public Integer getCarid() {
+        return carid;
+    }
+
+    public void setCarid(Integer carid) {
+        this.carid = carid;
+    }
+
+    public Integer getSid() {
+        return sid;
+    }
+
+    public void setSid(Integer sid) {
+        this.sid = sid;
+    }
+
+    public Integer getDid() {
+        return did;
+    }
+
+    public void setDid(Integer did) {
+        this.did = did;
     }
 
     public String getSname() {
@@ -91,4 +118,17 @@ public class SC {
         this.count = count;
         this.status = status;
     }
+
+    public SC(Integer sid, String sname, Integer did, String dname, String dimage, Integer dprice, Integer dstatus, Integer count, Integer status) {
+        this.sid = sid;
+        this.sname = sname;
+        this.did = did;
+        this.dname = dname;
+        this.dimage = dimage;
+        this.dprice = dprice;
+        this.dstatus = dstatus;
+        this.count = count;
+        this.status = status;
+    }
+
 }

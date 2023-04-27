@@ -27,6 +27,8 @@ public class ShopCar {
         this.count = count;
     }
 
+
+
     public ShopCar(Integer uid, Integer did, Integer sid) {
         this.uid = uid;
         this.did = did;

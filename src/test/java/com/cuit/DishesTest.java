@@ -36,13 +36,13 @@ public class DishesTest {
 
     @Test
     public void testA(){
-        List<Dishes> dishes = dishesMapper.queryDishesBySid(4,0);
+        List<Dishes> dishes = dishesMapper.queryDishesBySid(4);
         System.out.println(dishes);
     }
 
     @Test
     public void testB(){
-        Dishes dishes = dishesMapper.queryDishesByDid(5,0);
+        Dishes dishes = dishesMapper.queryDishesByDid(5);
         System.out.println(dishes);
     }
 

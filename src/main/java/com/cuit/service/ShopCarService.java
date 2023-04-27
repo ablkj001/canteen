@@ -20,4 +20,8 @@ public interface ShopCarService {
 
     //购物车中的勾选菜品
     Integer updateShopCarStatus(ShopCar shopCar);
+
+    //根据carid获取购物车信息
+    ShopCar queryShopCar(Integer carid);
+
 }

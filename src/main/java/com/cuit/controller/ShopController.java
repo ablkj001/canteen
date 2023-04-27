@@ -26,6 +26,7 @@ public class ShopController {
     @Autowired
     private DishesService dishesService;
 
+    //返回食堂中店铺列表
     @RequestMapping("/shop/list")
     @ResponseBody
     public JSONObject getShopsByRid(@RequestBody Map map,@RequestHeader("Authorization") String token){
@@ -36,7 +37,7 @@ public class ShopController {
         }else{
             Integer sid = Integer.parseInt(map.get("sid").toString());
             Shop shop = shopService.queryShopBySid(sid);
-            List<Dishes> dishes = dishesService.queryDishesBySid(sid);
+            List<Dishes> dishes = dishesService.queryDishesByStatus(sid);
             SD sd = new SD(shop,dishes);
             System.out.println(sd);
             json.put("data",sd);
@@ -45,6 +46,7 @@ public class ShopController {
         return json;
     }
 
+    //食堂管理者添加店铺
     @RequestMapping("/shop/add")
     public JSONObject addShop(@RequestBody Map map){
         JSONObject add = new JSONObject();

@@ -8,6 +8,7 @@ public class User {
     private String flag;    //用户标识
     private String tel;     //联系方式
     private String uavatar; //用户头像
+    private Integer status; //用户状态
 
     public User() {
     }
@@ -33,6 +34,15 @@ public class User {
         this.uavatar = uavatar;
     }
 
+    public User(String uname, String pwd, String flag, String tel, String uavatar, Integer status) {
+        this.uname = uname;
+        this.pwd = pwd;
+        this.flag = flag;
+        this.tel = tel;
+        this.uavatar = uavatar;
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -42,7 +52,16 @@ public class User {
                 ", flag='" + flag + '\'' +
                 ", tel='" + tel + '\'' +
                 ", uavatar='" + uavatar + '\'' +
+                ", status=" + status +
                 '}';
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getUid() {

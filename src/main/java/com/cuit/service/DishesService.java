@@ -6,12 +6,15 @@ import java.util.List;
 
 public interface DishesService {
 
-    //获取不同店铺的不同商品
+    //根据店铺ID获取菜品
     List<Dishes> queryDishesBySid(Integer sid);
 
-    //随机获取7个不同的商品
+    //随机获取7个不同菜品
     List<Dishes> queryRandomDished();
 
     //根据did获取商品
     Dishes queryDishesByDid(Integer did);
+
+    //获取未下架菜品
+    List<Dishes> queryDishesByStatus(Integer sid);
 }

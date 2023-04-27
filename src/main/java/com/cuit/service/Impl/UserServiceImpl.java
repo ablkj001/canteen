@@ -55,11 +55,11 @@ public class UserServiceImpl implements UserService {
         User user_r = userMapper.queryUserByUname(user.getUname());
         if (user_r==null){
             loginResultEnum = LoginResultEnum.USERNAME_UNEXISTED;  //用户不存在
-        }
-        else if(user_r.getPwd().equals(user.getPwd())){
+        }else if(user_r.getStatus() == 1){
+            loginResultEnum = LoginResultEnum.FROZEN_ACCOUNT;   //用户被冻结
+        } else if(user_r.getPwd().equals(user.getPwd())){
             loginResultEnum = LoginResultEnum.SUCCESS;       //密码正确
-        }
-        else {
+        } else {
             loginResultEnum = LoginResultEnum.PASSWORD_ERROR;      //密码错误
         }
         return loginResultEnum;

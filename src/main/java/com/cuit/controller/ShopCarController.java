@@ -35,6 +35,7 @@ public class ShopCarController {
     @Autowired
     private DishesService dishesService;
 
+    //添加购物车
     @RequestMapping("/shopcar/add")
     @ResponseBody
     public JSONObject addShopCar(@RequestHeader("Authorization") String token, @RequestBody Map map) {
@@ -61,6 +62,7 @@ public class ShopCarController {
         return json;
     }
 
+    //更新购物车中的数据
     @RequestMapping("/shopcar/update")
     @ResponseBody
     public JSONObject updateShopCar(@RequestHeader("Authorization") String token, @RequestBody Map map) {
@@ -69,12 +71,10 @@ public class ShopCarController {
             json.put("message", "请先登录！");
             json.put("code", 1);
         } else {
-            User user = userService.queryUserByUame(token);
-            Integer uid = user.getUid();
-            Integer did = Integer.parseInt(map.get("did").toString());
-            Integer sid = Integer.parseInt(map.get("sid").toString());
+            Integer carid = Integer.parseInt(map.get("carid").toString());
             Integer count = Integer.parseInt(map.get("count").toString());
-            ShopCar shopCar = new ShopCar(uid, did, sid, count);
+            ShopCar shopCar = shopCarService.queryShopCar(carid);
+            shopCar.setCount(count);
             Integer i = shopCarService.updateShopCar(shopCar);
             if(i == 0){
                 json.put("message","超过购买限度！");
@@ -87,6 +87,7 @@ public class ShopCarController {
         return json;
     }
 
+    //删除购物车
     @RequestMapping("/shopcar/delete")
     @ResponseBody
     public JSONObject deleteShopCar(@RequestHeader("Authorization") String token, @RequestBody Map map) {
@@ -103,6 +104,7 @@ public class ShopCarController {
         return json;
     }
 
+    //返回购物车中菜品的列表
     @RequestMapping("/shopcar/list")
     @ResponseBody
     public JSONObject queryShopCarByUid(@RequestHeader("Authorization") String token) {
@@ -124,7 +126,7 @@ public class ShopCarController {
                 Integer dstatus = dishes.getStatus();
                 Integer count = shopCar.getCount();
                 Integer status = shopCar.getStatus();
-                SC sc = new SC(sname,dname,dimage,dprice,dstatus,count,status);
+                SC sc = new SC(shopCar.getCarid(),shopCar.getSid(),sname,shopCar.getDid(),dname,dimage,dprice,dstatus,count,status);
                 scs.add(sc);
             }
             json.put("data", scs);
@@ -133,6 +135,7 @@ public class ShopCarController {
         return json;
     }
 
+    //勾选菜品
     @RequestMapping("/shopcar/select")
     @ResponseBody
     public JSONObject selectShopCar(@RequestHeader("Authorization") String token, @RequestBody Map map) {
@@ -141,12 +144,11 @@ public class ShopCarController {
             json.put("message", "请先登录！");
             json.put("code", 1);
         } else {
-            User user = userService.queryUserByUame(token);
-            Integer uid = user.getUid();
-            Integer did = Integer.parseInt(map.get("did").toString());
-            Integer sid = Integer.parseInt(map.get("sid").toString());
-            ShopCar shopCar = new ShopCar(uid, did, sid);
-            Integer i = shopCarService.addShopCar(shopCar);
+            Integer carid = Integer.parseInt(map.get("carid").toString());
+            Integer status = Integer.parseInt(map.get("status").toString());
+            ShopCar shopCar = shopCarService.queryShopCar(carid);
+            shopCar.setStatus(status);
+            Integer i = shopCarService.updateShopCarStatus(shopCar);
             json.put("message", "勾选成功！");
             json.put("code", 0);
         }

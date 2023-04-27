@@ -24,6 +24,7 @@ public class RoomController {
     @Autowired
     private ShopService shopService;
 
+    //用户首页食堂的列表
     @RequestMapping("/room/list")
     @ResponseBody
     public JSONObject getRoom(@RequestHeader("Authorization") String token){
@@ -47,6 +48,7 @@ public class RoomController {
         return json;
     }
 
+    //食堂管理者添加食堂
     @RequestMapping("/room/add")
     @ResponseBody
     public JSONObject addRoom(@RequestBody Map map){
@@ -58,6 +60,7 @@ public class RoomController {
         return addRoom;
     }
 
+    //食堂管理者移除食堂
     @RequestMapping("/room/delete")
     @ResponseBody
     public JSONObject deleteRoom(@RequestBody Map map){

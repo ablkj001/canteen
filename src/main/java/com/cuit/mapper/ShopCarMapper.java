@@ -20,6 +20,9 @@ public interface ShopCarMapper {
     //单次移除购物车中的菜品
     Integer deleteShopCar(Integer carid);
 
+    //获取购物车菜品信息
+    ShopCar queryShopCar(@Param("carid") Integer carid);
+
     //查询该用户是否已经将该菜品添加进购物车，返回菜品的数量
     Integer countShopCarByDid(@Param("did") Integer did,@Param("uid") Integer uid);
 
