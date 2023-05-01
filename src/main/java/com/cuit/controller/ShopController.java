@@ -29,35 +29,88 @@ public class ShopController {
     //返回食堂中店铺列表
     @RequestMapping("/shop/list")
     @ResponseBody
-    public JSONObject getShopsByRid(@RequestBody Map map,@RequestHeader("Authorization") String token){
+    public JSONObject getShopsByRid(@RequestBody Map map, @RequestHeader("Authorization") String token) {
         JSONObject json = new JSONObject();
-        if(token == null){
-            json.put("data",null);
-            json.put("code",1);
-        }else{
+        if (token == null) {
+            json.put("data", null);
+            json.put("code", 1);
+        } else {
             Integer sid = Integer.parseInt(map.get("sid").toString());
             Shop shop = shopService.queryShopBySid(sid);
             List<Dishes> dishes = dishesService.queryDishesByStatus(sid);
-            SD sd = new SD(shop,dishes);
+            SD sd = new SD(shop, dishes);
             System.out.println(sd);
-            json.put("data",sd);
-            json.put("code",0);
+            json.put("data", sd);
+            json.put("code", 0);
         }
         return json;
     }
 
-    //食堂管理者添加店铺
-    @RequestMapping("/shop/add")
-    public JSONObject addShop(@RequestBody Map map){
-        JSONObject add = new JSONObject();
-        String sname = map.get("sname").toString();
-        Integer rid = Integer.parseInt(map.get("rid").toString());
-        String location = map.get("location").toString();
-        String manager = map.get("manager").toString();
-        String tel = map.get("tel").toString();
-        Shop shop = new Shop(sname,rid,location,manager,tel);
-        Integer i = shopService.addShop(shop);
-        add.put("message","添加成功");
-        return add;
+    //根据店铺ID或店铺名查询店铺
+    @RequestMapping("/shop/query")
+    @ResponseBody
+    public JSONObject queryShopBySnameOrSid(@RequestBody Map map, @RequestHeader("Authorization") String token) {
+        JSONObject json = new JSONObject();
+        if (token == null) {
+            json.put("data", null);
+            json.put("code", 1);
+        } else {
+            if (map.get("sid") == null) {
+                Integer sid = 0;
+            }
+            if (map.get("sname") == null) {
+                String sname = "";
+            }
+            Integer sid = Integer.parseInt(map.get("sid").toString());
+            String sname = map.get("sname").toString();
+            Integer page = Integer.parseInt(map.get("page").toString());
+            List<Shop> shops = shopService.queryShopBySnameOrSid(sid, sname, page);
+            json.put("data", shops);
+            json.put("code", 0);
+        }
+        return json;
+    }
+
+    //编辑店铺信息
+    @RequestMapping("/shop/edit")
+    @ResponseBody
+    public JSONObject editShop(@RequestBody Map map, @RequestHeader("Authorization") String token) {
+        JSONObject json = new JSONObject();
+        if (token == null) {
+            json.put("data", null);
+            json.put("code", 1);
+        } else {
+            Integer sid = Integer.parseInt(map.get("sid").toString());
+            String sname = map.get("sname").toString();
+            Integer rid = Integer.parseInt(map.get("rid").toString());
+            String location = map.get("location").toString();
+            String manager = map.get("manager").toString();
+            String tel = map.get("tel").toString();
+            Integer status = Integer.parseInt(map.get("status").toString());
+            Shop shop = new Shop(sid, sname, rid, location, manager, tel, status);
+            Integer i = shopService.editShop(shop);
+            json.put("data", i);
+            json.put("code", 0);
+        }
+        return json;
+    }
+
+    //分页展示所有店铺列表
+    @RequestMapping("/shop/manager")
+    @ResponseBody
+    public JSONObject shopList(@RequestBody Map map, @RequestHeader("Authorization") String token){
+        JSONObject json = new JSONObject();
+        if (token == null) {
+            json.put("data", null);
+            json.put("code", 1);
+        } else {
+            Integer page = Integer.parseInt(map.get("page").toString());
+            List<Shop> shops = shopService.queryShopByPage(page);
+            Integer count = shopService.countShop();
+            json.put("count",count);
+            json.put("data",shops);
+            json.put("code",0);
+        }
+        return json;
     }
 }

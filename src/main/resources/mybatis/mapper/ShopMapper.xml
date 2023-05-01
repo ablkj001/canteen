@@ -22,4 +22,40 @@
         select * from canteendb.shop
         where sid = #{sid}
     </select>
+
+    <select id="queryShopBySname" resultType="Shop">
+        select * from canteendb.shop
+        where sname = #{sname}
+    </select>
+
+    <select id="queryShopBySnameRid" resultType="Shop">
+        select * from canteendb.shop
+        where sname = #{sname} and rid = #{rid}
+    </select>
+    
+    <select id="queryShopBySnameOrSid" resultType="Shop">
+        select * from canteendb.shop
+        where sid = #{sid} or sname like concat('%',#{sname},'%')
+        limit ${6*(page -1)},6
+    </select>
+
+    <update id="editShop" parameterType="Shop">
+        update canteendb.shop
+        set
+          sname = #{sname},
+          location = #{location},
+          manager = #{manager},
+          tel = #{tel},
+          status = #{status}
+        where sid =#{sid}
+    </update>
+
+    <select id="queryShopByPage" parameterType="int">
+        select * from shop
+        limit ${6*(page -1)},6
+    </select>
+
+    <select id="countShop" resultType="int">
+        select count(*) from shop
+    </select>
 </mapper>

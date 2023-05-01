@@ -9,6 +9,9 @@ public class Dishes {
     private Integer sid;    //店铺ID
     private String detail;  //菜品详情
     private Integer status = 0;  //菜品状态，默认为0
+    private String swiper;  //菜品轮播图
+    private Integer dishelevel = 0; //菜品推介等级
+    private Integer swiperlevel = 0;    //轮播图推介等级
 
     public Dishes() {
     }
@@ -19,6 +22,15 @@ public class Dishes {
         this.dimage = dimage;
         this.sid = sid;
         this.detail = detail;
+    }
+
+    public Dishes(String dname, Integer dprice, String dimage, Integer sid, String detail, String swiper) {
+        this.dname = dname;
+        this.dprice = dprice;
+        this.dimage = dimage;
+        this.sid = sid;
+        this.detail = detail;
+        this.swiper = swiper;
     }
 
     public Dishes(String dname, Integer dprice, String dimage, Integer sid, String detail, Integer status) {
@@ -39,6 +51,19 @@ public class Dishes {
         this.detail = detail;
     }
 
+    public Dishes(Integer did, String dname, Integer dprice, String dimage, Integer sid, String detail, Integer status, String swiper, Integer dishelevel, Integer swiperlevel) {
+        this.did = did;
+        this.dname = dname;
+        this.dprice = dprice;
+        this.dimage = dimage;
+        this.sid = sid;
+        this.detail = detail;
+        this.status = status;
+        this.swiper = swiper;
+        this.dishelevel = dishelevel;
+        this.swiperlevel = swiperlevel;
+    }
+
     @Override
     public String toString() {
         return "Dishes{" +
@@ -49,7 +74,34 @@ public class Dishes {
                 ", sid=" + sid +
                 ", detail='" + detail + '\'' +
                 ", status=" + status +
+                ", swiper='" + swiper + '\'' +
+                ", dishelevel=" + dishelevel +
+                ", swiperlevel=" + swiperlevel +
                 '}';
+    }
+
+    public String getSwiper() {
+        return swiper;
+    }
+
+    public void setSwiper(String swiper) {
+        this.swiper = swiper;
+    }
+
+    public Integer getDishelevel() {
+        return dishelevel;
+    }
+
+    public void setDishelevel(Integer dishelevel) {
+        this.dishelevel = dishelevel;
+    }
+
+    public Integer getSwiperlevel() {
+        return swiperlevel;
+    }
+
+    public void setSwiperlevel(Integer swiperlevel) {
+        this.swiperlevel = swiperlevel;
     }
 
     public Integer getStatus() {

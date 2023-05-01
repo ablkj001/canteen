@@ -15,4 +15,6 @@ public interface CommentService {
     List<Comment> queryCommentByPage(Integer currPage,Integer did);
 
     Integer CountCommentsByDid(Integer did);
+
+    List<Comment> queryCommentBySid(Integer page,Integer sid);
 }

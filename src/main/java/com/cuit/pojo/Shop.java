@@ -8,6 +8,7 @@ public class Shop {
     private String location;    //所处位置
     private String manager;     //负责人
     private String tel;         //负责人联系方式
+    private Integer status;     //营业状态
 
     public Shop() {
     }
@@ -27,6 +28,46 @@ public class Shop {
         this.location = location;
         this.manager = manager;
         this.tel = tel;
+    }
+
+    public Shop(String sname, Integer rid, String location, String manager, String tel, Integer status) {
+        this.sname = sname;
+        this.rid = rid;
+        this.location = location;
+        this.manager = manager;
+        this.tel = tel;
+        this.status = status;
+    }
+
+    public Shop(Integer sid, String sname, Integer rid, String location, String manager, String tel, Integer status) {
+        this.sid = sid;
+        this.sname = sname;
+        this.rid = rid;
+        this.location = location;
+        this.manager = manager;
+        this.tel = tel;
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "sid=" + sid +
+                ", sname='" + sname + '\'' +
+                ", rid=" + rid +
+                ", location='" + location + '\'' +
+                ", manager='" + manager + '\'' +
+                ", tel='" + tel + '\'' +
+                ", status=" + status +
+                '}';
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getSid() {

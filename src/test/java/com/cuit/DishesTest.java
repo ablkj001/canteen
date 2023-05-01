@@ -49,11 +49,30 @@ public class DishesTest {
     @Test
     public void testC(){
         Dishes dishes = new Dishes("清汤饺",12,"",5,"");
-        Integer i = dishesMapper.addDishes(dishes);
+//        Integer i = dishesMapper.addDishes(dishes);
     }
 
     @Test
     public void testD(){
         List<Dishes> dishes = dishesService.queryRandomDished();
+    }
+
+    @Test
+    public void testE(){
+        Integer i = dishesService.countDishes(5);
+        System.out.println(i);
+    }
+
+    @Test
+    public void testF(){
+        Dishes dishes = new Dishes("水煮牛肉",20,"",9,"牛肉","");
+        Integer i = dishesService.addDishes(dishes);
+    }
+
+    @Test
+    public void testG(){
+        Dishes dishes = new Dishes("水煮牛肉",22,"",9,"最近牛肉涨价了","");
+        dishes.setDid(18);
+        dishesMapper.editDishes(dishes);
     }
 }

@@ -43,4 +43,10 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> comments = commentMapper.queryCommentByDid(did);
         return comments.size();
     }
+
+    @Override
+    public List<Comment> queryCommentBySid(Integer page, Integer sid) {
+        List<Comment> comments = commentMapper.queryCommentByShop(page,sid);
+        return comments;
+    }
 }

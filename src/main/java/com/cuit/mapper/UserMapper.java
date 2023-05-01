@@ -29,4 +29,16 @@ public interface UserMapper {
 
     //删除用户
     Integer deleteUser(Integer uid);
+
+    //根据用户名或ID查询用户
+    List<User> queryUserByUnameOrId(@Param("uid") Integer uid,@Param("uname") String uname,@Param("page") Integer page);
+
+    //获取用户总数
+    Integer countUser();
+
+    //分页获取用户列表
+    List<User> queryUserListByPage(@Param("page") Integer page);
+
+    //改变用户的状态
+    Integer chageUserStatus(@Param("uid") Integer uid,@Param("status") Integer status);
 }

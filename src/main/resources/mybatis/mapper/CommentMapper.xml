@@ -23,4 +23,10 @@
         where did = #{did}
         limit ${7*(page-1)},7
     </select>
+
+    <select id="queryCommentByShop" resultType="Comment">
+        select * from canteendb.comment
+        where sid = #{sid}
+        limit ${8*(page-1)},8
+    </select>
 </mapper>

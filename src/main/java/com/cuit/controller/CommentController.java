@@ -23,7 +23,7 @@ public class CommentController {
     //查询评论
     @RequestMapping("/comment")
     @ResponseBody
-    public List<Comment> getCommentByDishes(@RequestBody Map map){
+    public List<Comment> getCommentByDishes(@RequestBody Map map) {
         Integer did = Integer.parseInt(map.get("did").toString());
         List<Comment> comments = commentService.queryCommentByDid(did);
         return comments;
@@ -32,21 +32,39 @@ public class CommentController {
     //添加评论
     @RequestMapping("/comment/add")
     @ResponseBody
-    public JSONObject addComment(@RequestBody Map map,@RequestHeader("Authorization") String token){
+    public JSONObject addComment(@RequestBody Map map, @RequestHeader("Authorization") String token) {
         JSONObject json = new JSONObject();
         if (token == null) {
             json.put("data", null);
             json.put("code", 1);
-        }else {
+        } else {
             Integer did = Integer.parseInt(map.get("foodID").toString());
             Integer uid = Integer.parseInt(token);
             System.out.println(map);
             Integer sid = Integer.parseInt(map.get("shopID").toString());
             String detail = map.get("comments").toString();
-            Comment comment = new Comment(did,uid,sid,new Date(),detail);
+            Comment comment = new Comment(did, uid, sid, new Date(), detail);
             Integer i = commentService.addComment(comment);
-            json.put("message","添加成功！");
-            json.put("code",0);
+            json.put("message", "添加成功！");
+            json.put("code", 0);
+        }
+        return json;
+    }
+
+    //根据店铺查询评论
+    @RequestMapping("/comment/shop")
+    @ResponseBody
+    public JSONObject shopComment(@RequestBody Map map, @RequestHeader("Authorization") String token) {
+        JSONObject json = new JSONObject();
+        if (token == null) {
+            json.put("data", null);
+            json.put("code", 1);
+        } else {
+            Integer page = Integer.parseInt(map.get("page").toString());
+            Integer sid = Integer.parseInt(map.get("sid").toString());
+            List<Comment> comments = commentService.queryCommentBySid(page, sid);
+            json.put("data", comments);
+            json.put("code", 0);
         }
         return json;
     }

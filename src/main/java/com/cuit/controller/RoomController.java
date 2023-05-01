@@ -39,6 +39,7 @@ public class RoomController {
             for(Room room:rooms){
                 List<Shop> shop = shopService.queryShopByRid(room.getRid());
                 RS rs = new RS(room,shop);
+                rs.check();
                 list.add(rs);
             }
             System.out.println(list);

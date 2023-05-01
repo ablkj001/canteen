@@ -2,7 +2,9 @@ package com.cuit.combine;
 
 import com.cuit.pojo.Room;
 import com.cuit.pojo.Shop;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RS {
@@ -18,6 +20,15 @@ public class RS {
         this.shops = shops;
     }
 
+    public void check(){
+        List<Shop> shops = new ArrayList<>();
+        for(Shop shop:this.shops){
+            if (shop.getStatus() == 0){
+                shops.add(shop);
+            }
+        }
+        this.shops = shops;
+    }
 
     @Override
     public String toString() {

@@ -37,7 +37,7 @@ public class ShopTest {
     @Test
     public void testB(){
         Shop shop = new Shop("风味小炒",1,"一楼中间","金代龙","12345678910");
-        Integer i = shopService.addShop(shop);
+//        Integer i = shopService.addShop(shop);
         List<Shop> shops = shopService.queryShopByRid(1);
     }
 

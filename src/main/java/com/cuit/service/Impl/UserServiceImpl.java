@@ -76,4 +76,28 @@ public class UserServiceImpl implements UserService {
         }
         return registerResultEnum;
     }
+
+    @Override
+    public List<User> queryUserByUnameOrUid(Integer uid, String uname,Integer page) {
+        List<User> users = userMapper.queryUserByUnameOrId(uid,uname,page);
+        return users;
+    }
+
+    @Override
+    public List<User> queryUserByPage(Integer page) {
+        List<User> users = userMapper.queryUserListByPage(page);
+        return users;
+    }
+
+    @Override
+    public Integer countUser() {
+        Integer count = userMapper.countUser();
+        return count;
+    }
+
+    @Override
+    public Integer changeUserStatus(Integer uid, Integer status) {
+        Integer i = userMapper.chageUserStatus(uid,status);
+        return i;
+    }
 }

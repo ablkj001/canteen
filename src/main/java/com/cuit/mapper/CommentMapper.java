@@ -22,4 +22,7 @@ public interface CommentMapper {
 
     //根据页数查询评论
     List<Comment> queryCommentByPage(@Param("page") Integer page,@Param("did") Integer did);
+
+    //根据店铺查询评论
+    List<Comment> queryCommentByShop(@Param("page") Integer page,@Param("sid") Integer sid);
 }

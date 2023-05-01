@@ -28,4 +28,16 @@ public interface UserService {
 
     //用户注册
     RegisterResultEnum add(User user);
+
+    //根据用户名或用户ID查询用户
+    List<User> queryUserByUnameOrUid(Integer uid,String uname,Integer page);
+
+    //分页获取用户列表
+    List<User> queryUserByPage(Integer page);
+
+    //统计用户的数量
+    Integer countUser();
+
+    //改变用户的状态
+    Integer changeUserStatus(Integer uid,Integer status);
 }

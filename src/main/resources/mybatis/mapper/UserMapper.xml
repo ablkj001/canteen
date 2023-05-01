@@ -30,4 +30,26 @@
     <delete id="deleteUser" parameterType="int">
         delete from canteendb.user where uid = #{uid}
     </delete>
+
+    <select id="queryUserByUnameOrId" resultType="User">
+        select * from canteendb.user
+        where uid = #{uid} or uname like concat('%',#{uname},'%')
+        limit ${6*(page -1)},6
+    </select>
+
+    <select id="countUser" resultType="int">
+        select count(*) from user
+        where uid = #{uid} or uname = #{uname}
+    </select>
+
+    <select id="queryUserListByPage" resultType="User">
+        select * from user
+        limit ${6*(page -1)},6
+    </select>
+    
+    <update id="chageUserStatus" parameterType="int">
+        update canteendb.user
+        set status = #{status}
+        where uid = #{uid}
+    </update>
 </mapper>

@@ -14,8 +14,8 @@
     </select>
 
     <insert id="addDishes" parameterType="Dishes">
-        insert into canteendb.dishes(dname, dprice, dimage, sid, detail)
-        values (#{dname},#{dprice},#{dimage},#{sid},#{detail})
+        insert into canteendb.dishes(dname, dprice, dimage, sid, detail,swiper)
+        values (#{dname},#{dprice},#{dimage},#{sid},#{detail},#{swiper})
     </insert>
 
     <delete id="deleteDishes" parameterType="int">
@@ -29,5 +29,52 @@
 
     <select id="queryDishesByDstatus" resultType="Dishes">
         select * from canteendb.dishes where sid = #{sid} and status = 0
+    </select>
+
+    <select id="queryDishesByPage" resultType="Dishes">
+        select * from canteendb.dishes
+        where sid = #{sid}
+        limit ${4*(page-1)},4
+    </select>
+
+    <select id="queryDishesByDname" resultType="Dishes">
+        select * from canteendb.dishes
+        where sid = #{sid} and dname like concat('%',#{dname},'%')
+        limit ${4*(page-1)},4
+    </select>
+
+    <select id="countDishes" resultType="int">
+        select count(*) from canteendb.dishes
+        where sid = #{sid}
+    </select>
+
+    <select id="countDishesByDname" resultType="int">
+        select count(*) from canteendb.dishes
+        where sid = #{sid} and dname like concat('%',#{dname},'%')
+    </select>
+
+    <update id="changeDishesStatus" parameterType="int">
+        update canteendb.dishes
+        set status = #{status}
+        where did = #{did}
+    </update>
+
+    <update id="editDishes" parameterType="Dishes">
+        update canteendb.dishes
+        set
+            dname = #{dname},
+            dprice = #{dprice},
+            dimage = #{dimage},
+            detail = #{detail},
+            status = #{status},
+            swiper = #{swiper},
+            dishelevel = #{dishelevel},
+            swiperlevel = #{swiperlevel}
+        where did = #{did}
+    </update>
+
+    <select id="queryDishesByDnameSid" resultType="Dishes">
+        select * from dishes
+        where dname = #{dname} and sid = #{sid}
     </select>
 </mapper>
