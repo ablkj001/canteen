@@ -31,4 +31,34 @@ public class RoomServiceImpl implements RoomService {
         Integer i = roomMapper.deleteRoom(rid);
         return i;
     }
+
+    @Override
+    public List<Room> queryRoomByPage(Integer page) {
+        List<Room> rooms = roomMapper.queryRoomByPage(page);
+        return rooms;
+    }
+
+    @Override
+    public Integer countRoom() {
+        Integer i = roomMapper.countRoom();
+        return i;
+    }
+
+    @Override
+    public List<Room> queryRoomByRidOrRname(Integer rid, String rname,Integer page) {
+        List<Room> rooms = roomMapper.queryRoomByRidOrRname(rid,rname,page);
+        return rooms;
+    }
+
+    @Override
+    public Integer editRoom(Room room) {
+        Integer i = roomMapper.editRoom(room);
+        return i;
+    }
+
+    @Override
+    public Room queryRoomByRid(Integer rid) {
+        Room room = roomMapper.queryRoomByRid(rid);
+        return room;
+    }
 }

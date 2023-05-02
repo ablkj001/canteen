@@ -7,6 +7,7 @@
 
     <select id="queryRoomList" resultType="Room">
         select * from canteendb.room
+        where status = 0
     </select>
 
     <insert id="addRoom" parameterType="Room">
@@ -17,4 +18,30 @@
     <delete id="deleteRoom" parameterType="int">
         delete from canteendb.room where rid = #{rid}
     </delete>
+
+    <select id="queryRoomByPage" resultType="Room">
+        select * from canteendb.room
+        limit ${6*(page -1)},6
+    </select>
+
+    <select id="countRoom" resultType="int">
+        select count(*) from canteendb.room
+    </select>
+
+    <select id="queryRoomByRidOrRname" resultType="Room">
+        select * from canteendb.room
+        where rid = #{rid} or rname = #{rname}
+        limit ${6*(page -1)},6
+    </select>
+
+    <update id="editRoom" parameterType="Room">
+        update canteendb.room
+        set rname = #{rname},date = #{date},status = #{status}
+        where rid = #{rid}
+    </update>
+
+    <select id="queryRoomByRid" resultType="Room">
+        select * from canteendb.room
+        where rid = #{rid}
+    </select>
 </mapper>

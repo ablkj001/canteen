@@ -6,7 +6,8 @@
 <mapper namespace="com.cuit.mapper.ShopMapper">
 
     <select id="queryShopByRid" resultType="Shop">
-        select * from canteendb.shop where rid = #{rid}
+        select * from canteendb.shop
+        where rid = #{rid} and status = 0
     </select>
 
     <insert id="addShop" parameterType="Shop">
