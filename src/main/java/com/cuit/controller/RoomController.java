@@ -5,6 +5,7 @@ import com.cuit.pojo.Room;
 import com.cuit.pojo.Shop;
 import com.cuit.service.RoomService;
 import com.cuit.service.ShopService;
+import com.sun.org.apache.bcel.internal.classfile.Code;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,6 +92,8 @@ public class RoomController {
                 rid = Integer.parseInt(map.get("rid").toString());
             }
             List<Room> rooms = roomService.queryRoomByRidOrRname(rid, rname, page);
+            json.put("data",rooms);
+            json.put("code", 0);
         }
         return json;
     }
