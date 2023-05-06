@@ -1,7 +1,6 @@
 package com.cuit.service;
 
 import com.cuit.pojo.Notice;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -12,7 +11,8 @@ public interface NoticeService {
 
     // 查询公告
     List<Notice> queryNotice(String content, Integer page);
-    Notice queryNoticeById(Integer id);
+
+//    Notice queryNoticeById(Integer id);
 
     // 删除公告
     Integer deleteNotice(Integer id);

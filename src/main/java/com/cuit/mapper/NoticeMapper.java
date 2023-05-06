@@ -16,7 +16,9 @@ public interface NoticeMapper {
 
     // 查询公告
     List<Notice> queryNotice(@Param("content") String content, @Param("page") Integer page);
-    Notice queryNoticeById(@Param("nid") Integer id);
+
+    // 仅在测试类中测试使用,使用id查询
+    Notice queryNoticeById(@Param("id") Integer id);
 
     // 删除公告
     Integer deleteNotice(@Param("nid") Integer id);

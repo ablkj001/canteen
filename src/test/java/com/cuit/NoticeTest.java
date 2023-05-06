@@ -43,8 +43,8 @@ public class NoticeTest {
     public void testA(){
 
         Notice notice = new Notice();
-        notice.setId(8);
-        notice.setContent("测试内容8");
+        notice.setNid(1);
+        notice.setContent("测试内容1");
         notice.setNoticeDate(DateUtil.date());
 
         System.out.println(notice);
@@ -59,20 +59,20 @@ public class NoticeTest {
 
     @Test
     public void testB(){
-        Integer noticeId = 1;
-        Notice notice = noticeMapper.queryNoticeById(noticeId);
+        Integer id = 1;
+        Notice notice = noticeMapper.queryNoticeById(id);
         System.out.println(notice);
 
         String content = "更新后的内容";
         Date noticeDate = DateUtil.date();
-        Integer result = noticeMapper.updateNotice(noticeId,content,noticeDate);
+        Integer result = noticeMapper.updateNotice(id,content,noticeDate);
         System.out.println(result);
     }
 
     @Test
     public void testC(){
-        Integer noticeId = 1;
-        Integer result = noticeMapper.deleteNotice(noticeId);
+        Integer id = 1;
+        Integer result = noticeMapper.deleteNotice(id);
         System.out.println(result);
     }
 }

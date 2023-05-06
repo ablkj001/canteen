@@ -10,17 +10,17 @@ import java.util.Date;
 @TableName("notice")
 public class Notice {
     @TableId(type = IdType.AUTO)
-    private Integer id; // 公告id
+    private Integer nid; // 公告id
     private String content; // 公告内容
-    @TableField("ndate")
+    @TableField("noticeDate")
     private Date noticeDate; // 更新时间
 
-    public Integer getId() {
-        return id;
+    public Integer getNid() {
+        return nid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setNid(Integer nid) {
+        this.nid = nid;
     }
 
     public String getContent() {
@@ -35,16 +35,6 @@ public class Notice {
         return noticeDate;
     }
 
-    public void setNoticeDate(Date noticeDate) {
-        this.noticeDate = noticeDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Notice{" +
-                "id=" + id +
-                ", content=" + content +
-                ", noticeDate=" + noticeDate +
-                '}';
+    public void setNoticeDate(Date noticeDate) { this.noticeDate = noticeDate;
     }
 }

@@ -1,6 +1,5 @@
 package com.cuit.service.Impl;
 
-import cn.hutool.core.date.DateUtil;
 import com.cuit.mapper.NoticeMapper;
 import com.cuit.pojo.Notice;
 import com.cuit.service.NoticeService;
@@ -10,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 公告的Service
+ */
 @Service
 public class NoticeServiceImpl implements NoticeService{
     @Autowired
@@ -35,10 +37,10 @@ public class NoticeServiceImpl implements NoticeService{
         return noticeMapper.queryNotice(content , page);
     }
 
-    @Override
-    public Notice queryNoticeById(Integer id){
-        return noticeMapper.queryNoticeById(id);
-    }
+//    @Override
+//    public Notice queryNoticeById(Integer id){
+//        return noticeMapper.queryNoticeById(id);
+//    }
 
     /**
      * 删除公告
@@ -58,12 +60,12 @@ public class NoticeServiceImpl implements NoticeService{
      * @return 行数
      */
     @Override
-    public Integer updateNotice(Integer id, String content, Date noticeDate){
-        return noticeMapper.updateNotice(id,content,noticeDate);
-    }
+    public Integer updateNotice(Integer id, String content, Date noticeDate){ return noticeMapper.updateNotice(id,content,noticeDate); }
 
-    // 获取公告条数
-    public Integer countNotice(String content){
-        return noticeMapper.countNotice(content);
-    }
+    /**
+     * 获取总数
+     * @param content 内容
+     * @return 数量
+     */
+    public Integer countNotice(String content){ return noticeMapper.countNotice(content); }
 }
