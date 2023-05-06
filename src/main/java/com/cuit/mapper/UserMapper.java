@@ -31,14 +31,17 @@ public interface UserMapper {
     Integer deleteUser(Integer uid);
 
     //根据用户名或ID查询用户
-    List<User> queryUserByUnameOrId(@Param("uid") Integer uid,@Param("uname") String uname,@Param("page") Integer page);
+    List<User> queryUserByUnameOrId(@Param("keyword") String keyword,@Param("page") Integer page);
 
     //获取用户总数
     Integer countUser();
 
-    //分页获取用户列表
+    //分页获取不包含管理员自身的用户列表
     List<User> queryUserListByPage(@Param("page") Integer page);
 
     //改变用户的状态
     Integer chageUserStatus(@Param("uid") Integer uid,@Param("status") Integer status);
+
+    //获取分页查询后用户的总数
+    Integer countUserByUnameOrId(@Param("keyword") String keyword,@Param("page") Integer page);
 }

@@ -60,8 +60,8 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List<Shop> queryShopBySnameOrSid(Integer sid, String sname, Integer page) {
-        List<Shop> shops = shopMapper.queryShopBySnameOrSid(sname,sid,page);
+    public List<Shop> queryShopBySnameOrSid(String keyword, Integer page) {
+        List<Shop> shops = shopMapper.queryShopBySnameOrSid(keyword,page);
         return shops;
     }
 
@@ -80,6 +80,18 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public Integer countShop() {
         Integer i = shopMapper.countShop();
+        return i;
+    }
+
+    @Override
+    public Integer countQueryShop(String keyword) {
+        Integer count = shopMapper.countQueryShop(keyword);
+        return count;
+    }
+
+    @Override
+    public Integer changeShopStatus(Integer rid) {
+        Integer i = shopMapper.changeShopStatus(rid);
         return i;
     }
 }

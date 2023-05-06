@@ -11,8 +11,8 @@
     </select>
 
     <insert id="addRoom" parameterType="Room">
-        insert into canteendb.room(rname,date)
-        values (#{rname},#{date})
+        insert into canteendb.room(rname,date,status,tel)
+        values (#{rname},#{date},#{status},#{tel})
     </insert>
 
     <delete id="deleteRoom" parameterType="int">
@@ -21,27 +21,42 @@
 
     <select id="queryRoomByPage" resultType="Room">
         select * from canteendb.room
+        where status = 0
         limit ${6*(page -1)},6
     </select>
 
     <select id="countRoom" resultType="int">
         select count(*) from canteendb.room
+        where status = 0
     </select>
 
     <select id="queryRoomByRidOrRname" resultType="Room">
         select * from canteendb.room
-        where rid = #{rid} or rname = #{rname}
+        where (rid like concat('%',#{keyword},'%') or rname like concat('%',#{keyword},'%'))
+        and status = 0
         limit ${6*(page -1)},6
     </select>
 
     <update id="editRoom" parameterType="Room">
         update canteendb.room
-        set rname = #{rname},date = #{date},status = #{status}
+        set rname = #{rname},date = #{date},status = #{status},tel = #{tel}
         where rid = #{rid}
     </update>
 
     <select id="queryRoomByRid" resultType="Room">
         select * from canteendb.room
-        where rid = #{rid}
+        where rid = #{rid} and status = 0
     </select>
+
+    <select id="countQueryRoom" resultType="int">
+        select count(*) from canteendb.room
+        where (rid like concat('%',#{keyword},'%') or rname like concat('%',#{keyword},'%'))
+        and status = 0
+    </select>
+    
+    <update id="roomStatus" parameterType="int">
+        update canteendb.room
+        set status = #{status}
+        where rid = #{rid}
+    </update>
 </mapper>

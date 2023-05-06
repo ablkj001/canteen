@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class Order {
 
-    private Integer oid;
-    private String onumber;
-    private String orderid;
-    private Integer uid;
-    private Integer sid;
-    private Integer did;
-    private Integer payment;
-    private Integer quantity;
-    private Date bdate;
-    private Integer ostatus = 1;        //默认为未完成状态
+    private Integer oid;                //订单主键
+    private String onumber;             //流水号
+    private String orderid;             //订单ID
+    private Integer uid;                //用户ID
+    private Integer sid;                //店铺ID
+    private Integer did;                //菜品ID
+    private Integer payment;            //总金额
+    private Integer quantity;           //菜品数量
+    private Date bdate;                 //购买日期
+    private Integer ostatus = 1;        //默认为未完成状态0为已完成，1为未完成
 
     @Override
     public String toString() {
@@ -156,5 +156,16 @@ public class Order {
         this.quantity = quantity;
         this.bdate = bdate;
         this.ostatus = ostatus;
+    }
+
+    public Order(String onumber, String orderid, Integer uid, Integer sid, Integer did, Integer payment, Integer quantity, Date bdate) {
+        this.onumber = onumber;
+        this.orderid = orderid;
+        this.uid = uid;
+        this.sid = sid;
+        this.did = did;
+        this.payment = payment;
+        this.quantity = quantity;
+        this.bdate = bdate;
     }
 }

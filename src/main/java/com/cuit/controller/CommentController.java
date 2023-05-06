@@ -1,7 +1,13 @@
 package com.cuit.controller;
 
 import com.cuit.pojo.Comment;
+import com.cuit.pojo.Dishes;
+import com.cuit.pojo.US;
+import com.cuit.pojo.User;
 import com.cuit.service.CommentService;
+import com.cuit.service.DishesService;
+import com.cuit.service.USService;
+import com.cuit.service.UserService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +25,15 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private USService usService;
+
+    @Autowired
+    private DishesService dishesService;
 
     //查询评论
     @RequestMapping("/comment")
@@ -39,7 +54,8 @@ public class CommentController {
             json.put("code", 1);
         } else {
             Integer did = Integer.parseInt(map.get("foodID").toString());
-            Integer uid = Integer.parseInt(token);
+            User user = userService.queryUserByUame(token);
+            Integer uid = user.getUid();
             System.out.println(map);
             Integer sid = Integer.parseInt(map.get("shopID").toString());
             String detail = map.get("comments").toString();
@@ -60,11 +76,44 @@ public class CommentController {
             json.put("data", null);
             json.put("code", 1);
         } else {
-            Integer page = Integer.parseInt(map.get("page").toString());
-            Integer sid = Integer.parseInt(map.get("sid").toString());
+            Integer page = Integer.parseInt(map.get("pagenum").toString());
+            User user = userService.queryUserByUame(token);
+            Integer uid = user.getUid();
+            US us = usService.queryUS(uid);
+            Integer sid = us.getSid();
             List<Comment> comments = commentService.queryCommentBySid(page, sid);
+            for (Comment comment:comments){
+                Integer uid1 = comment.getUid();
+                String uname = userService.queryUserById(uid1).getUname();
+                Integer did = comment.getDid();
+                String dname = dishesService.queryDishesByDid(did).getDname();
+                comment.setUname(uname);
+                comment.setDname(dname);
+            }
+            Integer count = commentService.countComment(sid);
+            json.put("count", count);
             json.put("data", comments);
             json.put("code", 0);
+        }
+        return json;
+    }
+
+    //店铺界面根据菜品ID或用户ID查询评论
+    @RequestMapping("/comment/query")
+    @ResponseBody
+    public JSONObject queryComment(@RequestBody Map map, @RequestHeader("Authorization") String token){
+        JSONObject json = new JSONObject();
+        if (token == null) {
+            json.put("data", null);
+            json.put("code", 1);
+        } else {
+            Integer keyword = Integer.parseInt(map.get("keyword").toString());
+            Integer page = Integer.parseInt(map.get("page").toString());
+            List<Comment> comments = commentService.queryCommentByUidAndDid(page,keyword);
+            Integer count = commentService.countQueryComment(keyword);
+            json.put("count",count);
+            json.put("data",comments);
+            json.put("code",0);
         }
         return json;
     }

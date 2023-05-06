@@ -4,24 +4,39 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.cuit.mapper.OrderMapper">
-
-    <select id="queryOrderByOnumber" resultType="Order">
-        select * from canteendb."order"
-        where onumber = #{onumber}
-    </select>
-
     <insert id="addOrder" parameterType="Order">
         insert into canteendb."order"(onumber, uid, did, payment, quantity, status)
         values (#{onumber},#{uid},#{did},#{payment},#{quantity},#{status})
     </insert>
 
-    <delete id="deleteOrder" parameterType="int">
-        delete from canteendb."order"
-        where onumber = #{onumber}
-    </delete>
+    <update id="changeOrderStatus" parameterType="int">
+        update canteendb."order"
+        set status = 0
+        where did = #{did} and orderid = #{orderid}
+    </update>
 
-    <select id="queryOrderByUid" resultType="Order">
+    <select id="countUserOrder" resultType="int">
+        select count(distinct orderid) from canteendb."order"
+        where uid = #{uid}
+    </select>
+
+    <select id="countShopOrder" resultType="int">
+        select count(distinct orderid) from canteendb."order"
+        where sid = #{sid}
+    </select>
+
+    <select id="queryOrderUserList" resultType="Order">
         select * from canteendb."order"
         where uid = #{uid}
+    </select>
+
+    <select id="queryOrderManagerList" resultType="Order">
+        select * from canteendb."order"
+        where sid = #{sid}
+    </select>
+
+    <select id="queryOrderByOrderid" resultType="Order">
+        select * from canteendb."order"
+        where orderid = #{orderid}
     </select>
 </mapper>

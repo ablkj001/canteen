@@ -28,11 +28,18 @@ public interface RoomMapper {
     Integer countRoom();
 
     //根据食堂ID或食堂名称查找食堂
-    List<Room> queryRoomByRidOrRname(@Param("rid") Integer rid,@Param("rname") String rname,@Param("page") Integer page);
+    List<Room> queryRoomByRidOrRname(@Param("keyword") String keyword,@Param("page") Integer page);
 
     //编辑食堂信息
     Integer editRoom(Room room);
 
     //根据食堂ID获取食堂
     Room queryRoomByRid(@Param("rid") Integer rid);
+
+    //获取查询后的食堂总数
+    Integer countQueryRoom(@Param("keyword") String keyword,@Param("page") Integer page);
+
+    //修改食堂的状态
+    Integer roomStatus(@Param("rid") Integer rid,@Param("status") Integer status);
+
 }

@@ -1,5 +1,6 @@
 package com.cuit.mapper;
 
+import com.cuit.pojo.Shop;
 import com.cuit.pojo.ShopCar;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -34,4 +35,10 @@ public interface ShopCarMapper {
 
     //勾选购物车中的菜品
     Integer updateShopCarStatus(@Param("did") Integer did,@Param("uid") Integer uid,@Param("status") Integer status);
+
+    //删除购物车中已勾选的菜品生成订单
+    Integer Order(@Param("uid") Integer uid);
+
+    //查询获取已经勾选的菜品列表
+    List<ShopCar> queryShopCarByStatus(@Param("uid") Integer uid);
 }

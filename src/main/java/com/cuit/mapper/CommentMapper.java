@@ -25,4 +25,13 @@ public interface CommentMapper {
 
     //根据店铺查询评论
     List<Comment> queryCommentByShop(@Param("page") Integer page,@Param("sid") Integer sid);
+
+    //根据菜品ID或用户ID分页查询评论
+    List<Comment> queryCommentByUidAndDid(@Param("keyword") Integer keyword,@Param("page") Integer page);
+
+    //获取当前店铺评论总数
+    Integer countCommentBySid(@Param("sid") Integer sid);
+
+    //获取查询后店铺评论的总数
+    Integer countQueryComment(@Param("keyword") Integer keyword);
 }

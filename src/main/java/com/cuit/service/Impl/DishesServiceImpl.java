@@ -53,8 +53,8 @@ public class DishesServiceImpl implements DishesService {
     }
 
     @Override
-    public List<Dishes> queryDishesByPage(Integer page, Integer sid) {
-        List<Dishes> dishes = dishesMapper.queryDishesByPage(page,sid);
+    public List<Dishes> queryDishesByPage(Integer page, Integer sid, Integer pagesize) {
+        List<Dishes> dishes = dishesMapper.queryDishesByPage(page,sid,pagesize);
         return dishes;
     }
 
@@ -97,5 +97,17 @@ public class DishesServiceImpl implements DishesService {
     public Dishes checkDishes(String dname, Integer sid) {
         Dishes dishes = dishesMapper.queryDishesByDnameSid(dname,sid);
         return dishes;
+    }
+
+    @Override
+    public Dishes queryDishesBySidAndDname(Integer sid, String dname) {
+        Dishes dishes = dishesMapper.queryDishesBySidAndDname(sid,dname);
+        return dishes;
+    }
+
+    @Override
+    public Integer changeStatusBySid(Integer sid) {
+        Integer i = dishesMapper.changeStatusBySid(sid);
+        return i;
     }
 }

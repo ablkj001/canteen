@@ -45,4 +45,14 @@
     <select id="queryShopCar" resultType="ShopCar">
         select * from canteendb.shopcar where carid = #{carid}
     </select>
+
+    <delete id="Order" parameterType="int">
+        delete from canteendb.shopcar
+        where uid = #{uid} and status = 0
+    </delete>
+
+    <select id="queryShopCarByStatus" parameterType="ShopCar">
+        select * from canteendb.shopcar
+        where uid = #{uid} and status = 0
+    </select>
 </mapper>

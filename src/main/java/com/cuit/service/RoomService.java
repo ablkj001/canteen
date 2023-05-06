@@ -19,11 +19,17 @@ public interface RoomService {
     Integer countRoom();
 
     //根据食堂ID或食堂名称查找食堂
-    List<Room> queryRoomByRidOrRname(Integer rid,String rname,Integer page);
+    List<Room> queryRoomByRidOrRname(String keyword,Integer page);
 
     //编辑食堂信息
     Integer editRoom(Room room);
 
     //根据食堂ID获取食堂
     Room queryRoomByRid(Integer rid);
+
+    //获取分页查询后的食堂总数
+    Integer countQueryRoom(String keyword,Integer page);
+
+    //修改食堂的状态
+    Integer roomStatus(Integer rid,Integer status);
 }

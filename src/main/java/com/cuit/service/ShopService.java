@@ -27,7 +27,7 @@ public interface ShopService {
     Shop queryShopBySnameRid(String sname,Integer rid);
 
     //根据店铺ID或店铺名获取店铺
-    List<Shop> queryShopBySnameOrSid(Integer sid,String sname,Integer page);
+    List<Shop> queryShopBySnameOrSid(String keyword,Integer page);
 
     //编辑用户的信息
     Integer editShop(Shop shop);
@@ -37,4 +37,10 @@ public interface ShopService {
 
     //获取店铺总数
     Integer countShop();
+
+    //获取查询后店铺的总数
+    Integer countQueryShop(String keyword);
+
+    //改变店铺状态
+    Integer changeShopStatus(Integer rid);
 }

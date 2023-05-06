@@ -19,7 +19,7 @@ public interface DishesService {
     List<Dishes> queryDishesByStatus(Integer sid);
 
     //根据页数获取菜品
-    List<Dishes> queryDishesByPage(Integer page,Integer sid);
+    List<Dishes> queryDishesByPage(Integer page,Integer sid, Integer pagesize);
 
     //根据菜品名来查询
     List<Dishes> queryDishesByDname(String dname,Integer sid,Integer page);
@@ -39,5 +39,12 @@ public interface DishesService {
     //编辑菜品
     void editDishes(Dishes dishes);
 
+    //获取菜品的状态
     Dishes checkDishes(String dname,Integer sid);
+
+    //根据店铺ID以及菜品名获取菜品
+    Dishes queryDishesBySidAndDname(Integer sid,String dname);
+
+    //将当前的店铺的菜品均置为下架状态
+    Integer changeStatusBySid(Integer sid);
 }

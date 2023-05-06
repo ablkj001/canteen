@@ -30,7 +30,7 @@ public interface DishesMapper {
     List<Dishes> queryAllDishes();
 
     //根据页数获取菜品，默认一页七个菜品
-    List<Dishes> queryDishesByPage(@Param("page") Integer page,@Param("sid") Integer sid);
+    List<Dishes> queryDishesByPage(@Param("page") Integer page,@Param("sid") Integer sid,@Param("pagesize") Integer pagesize);
 
     //根据菜品名进行查询
     List<Dishes> queryDishesByDname(@Param("dname") String dname,@Param("sid") Integer sid,@Param("page") Integer page);
@@ -49,4 +49,10 @@ public interface DishesMapper {
 
     //根据菜品名以及店铺ID获取菜品
     Dishes queryDishesByDnameSid(@Param("dname") String dname,@Param("sid") Integer sid);
+
+    //根据店铺ID以及菜品名获取菜品
+    Dishes queryDishesBySidAndDname(@Param("sid") Integer sid,@Param("dname") String dname);
+
+    //将当前的店铺的菜品均置为下架状态
+    Integer changeStatusBySid(@Param("sid") Integer sid);
 }

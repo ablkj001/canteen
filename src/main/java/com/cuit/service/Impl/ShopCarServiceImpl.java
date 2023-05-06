@@ -70,4 +70,10 @@ public class ShopCarServiceImpl implements ShopCarService {
         ShopCar shopCar = shopCarMapper.queryShopCar(carid);
         return shopCar;
     }
+
+    @Override
+    public Integer Order(Integer uid) {
+        Integer i = shopCarMapper.Order(uid);
+        return i;
+    }
 }

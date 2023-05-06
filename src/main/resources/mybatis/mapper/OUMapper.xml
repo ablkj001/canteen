@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cuit.mapper.OUMapper">
+
+    <insert id="addOU" parameterType="OU">
+        insert into canteendb.ou(orderid, uid,date)
+        values (#{orderid},#{uid},#{date})
+    </insert>
+
+    <select id="queryOU" resultType="OU">
+        select * from canteendb.ou
+        where uid = #{uid}
+        limit ${pagesize*(page-1)},#{pagesize}
+    </select>
+
+    <select id="countOU" resultType="int">
+        select count(*) from canteendb.ou
+        where uid = #{uid}
+    </select>
+</mapper>

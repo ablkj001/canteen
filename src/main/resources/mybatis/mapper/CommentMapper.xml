@@ -29,4 +29,20 @@
         where sid = #{sid}
         limit ${8*(page-1)},8
     </select>
+
+    <select id="queryCommentByUidAndDid" resultType="Comment">
+        select * from canteendb.comment
+        where uid like concat('%',#{keyword},'%') or sid like concat('%',#{keyword},'%')
+        limit ${8*(page-1)},8
+    </select>
+
+    <select id="countCommentBySid" resultType="int">
+        select count(*) from canteendb.comment
+        where sid = #{sid}
+    </select>
+
+    <select id="countQueryComment" resultType="int">
+        select count(*) from canteendb.comment
+        where uid like concat('%',#{keyword},'%') or sid like concat('%',#{keyword},'%')
+    </select>
 </mapper>

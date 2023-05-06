@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cuit.mapper.OSMapper">
+
+    <insert id="addOS" parameterType="OS">
+        insert into canteendb.os(orderid, sid,date)
+        values (#{orderid},#{sid},#{date})
+    </insert>
+
+    <select id="queryOS" resultType="OS">
+        select * from canteendb.os
+        where sid = #{sid}
+        limit ${pagesize*(page-1)},#{pagesize}
+    </select>
+
+    <select id="countOS" resultType="int">
+        select count(*) from canteendb.os
+        where sid = #{sid}
+    </select>
+
+</mapper>

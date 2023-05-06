@@ -78,8 +78,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> queryUserByUnameOrUid(Integer uid, String uname,Integer page) {
-        List<User> users = userMapper.queryUserByUnameOrId(uid,uname,page);
+    public List<User> queryUserByUnameOrUid(String keyword,Integer page) {
+        List<User> users = userMapper.queryUserByUnameOrId(keyword,page);
         return users;
     }
 
@@ -99,5 +99,11 @@ public class UserServiceImpl implements UserService {
     public Integer changeUserStatus(Integer uid, Integer status) {
         Integer i = userMapper.chageUserStatus(uid,status);
         return i;
+    }
+
+    @Override
+    public Integer countQureyUser(String keyword, Integer page) {
+        Integer count = userMapper.countUserByUnameOrId(keyword,page);
+        return count;
     }
 }

@@ -10,6 +10,8 @@ public class Comment {
     private Integer sid;    //店铺ID
     private Date date;      //评论日期
     private String detail;  //评论内容
+    private String dname;   //菜品名称
+    private String uname;   //用户名称
 
     public Comment() {
     }
@@ -40,7 +42,35 @@ public class Comment {
                 ", sid=" + sid +
                 ", date=" + date +
                 ", detail='" + detail + '\'' +
+                ", dname='" + dname + '\'' +
+                ", uname='" + uname + '\'' +
                 '}';
+    }
+
+    public Comment(Integer did, Integer uid, Integer sid, Date date, String detail, String dname, String uname) {
+        this.did = did;
+        this.uid = uid;
+        this.sid = sid;
+        this.date = date;
+        this.detail = detail;
+        this.dname = dname;
+        this.uname = uname;
+    }
+
+    public String getDname() {
+        return dname;
+    }
+
+    public void setDname(String dname) {
+        this.dname = dname;
+    }
+
+    public String getUname() {
+        return uname;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 
     public Integer getCid() {

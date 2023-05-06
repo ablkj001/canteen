@@ -69,6 +69,11 @@ public class DishesController {
             Integer did = Integer.parseInt(map.get("foodID").toString());
             Integer page = Integer.parseInt(map.get("pagenum").toString());
             List<Comment> comments = commentService.queryCommentByPage(page, did);
+            for (Comment comment : comments){
+                Integer uid = comment.getUid();
+                String uname = userService.queryUserById(uid).getUname();
+                comment.setUname(uname);
+            }
             Integer i = commentService.CountCommentsByDid(did);
             CP cp = new CP(i, comments);
             json.put("data", cp);
@@ -104,10 +109,11 @@ public class DishesController {
         } else {
             Integer uid = userService.queryUserByUame(token).getUid();
             Integer page = Integer.parseInt(map.get("pagenum").toString());
+            Integer pagesize = Integer.parseInt(map.get("pagesize").toString());
             US us = usService.queryUS(uid);
             Integer sid = us.getSid();
             Integer count = dishesService.countDishes(sid);
-            List<Dishes> dishes = dishesService.queryDishesByPage(page, sid);
+            List<Dishes> dishes = dishesService.queryDishesByPage(page, sid, pagesize);
             json.put("data", dishes);
             json.put("count", count);
             json.put("code", 0);

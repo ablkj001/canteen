@@ -33,17 +33,18 @@
 
     <select id="queryUserByUnameOrId" resultType="User">
         select * from canteendb.user
-        where uid = #{uid} or uname like concat('%',#{uname},'%')
+        where uid like concat('%',#{keyword},'%') or uname like concat('%',#{keyword},'%')
         limit ${6*(page -1)},6
     </select>
 
     <select id="countUser" resultType="int">
-        select count(*) from user
-        where uid = #{uid} or uname = #{uname}
+        select count(*) from canteendb.user
+        where flag != 'a'
     </select>
 
     <select id="queryUserListByPage" resultType="User">
         select * from user
+        where flag != 'a'
         limit ${6*(page -1)},6
     </select>
     
@@ -52,4 +53,9 @@
         set status = #{status}
         where uid = #{uid}
     </update>
+
+    <select id="countUserByUnameOrId" resultType="int">
+        select count(*) from canteendb.user
+        where uid like concat('%',#{keyword},'%') or uname like concat('%',#{keyword},'%')
+    </select>
 </mapper>

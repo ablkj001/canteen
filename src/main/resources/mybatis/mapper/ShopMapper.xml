@@ -7,7 +7,7 @@
 
     <select id="queryShopByRid" resultType="Shop">
         select * from canteendb.shop
-        where rid = #{rid} and status = 0
+        where rid = #{rid} and status != 2
     </select>
 
     <insert id="addShop" parameterType="Shop">
@@ -16,27 +16,29 @@
     </insert>
 
     <delete id="deleteShop" parameterType="int">
-        delete from canteendb.shop where sid = #{sid}
+        delete from canteendb.shop
+        where sid = #{sid}
     </delete>
 
     <select id="queryShopBySid" resultType="Shop">
         select * from canteendb.shop
-        where sid = #{sid}
+        where sid = #{sid} and status != 2
     </select>
 
     <select id="queryShopBySname" resultType="Shop">
         select * from canteendb.shop
-        where sname = #{sname}
+        where sname = #{sname} and status != 2
     </select>
 
     <select id="queryShopBySnameRid" resultType="Shop">
         select * from canteendb.shop
-        where sname = #{sname} and rid = #{rid}
+        where sname = #{sname} and rid = #{rid} and status != 2
     </select>
     
     <select id="queryShopBySnameOrSid" resultType="Shop">
         select * from canteendb.shop
-        where sid = #{sid} or sname like concat('%',#{sname},'%')
+        where (sid like concat('%',#{keyword},'%') or sname like concat('%',#{keyword},'%'))
+        and status != 2
         limit ${6*(page -1)},6
     </select>
 
@@ -51,12 +53,26 @@
         where sid =#{sid}
     </update>
 
-    <select id="queryShopByPage" parameterType="int">
+    <select id="queryShopByPage" resultType="Shop">
         select * from shop
+        where status != 2
         limit ${6*(page -1)},6
     </select>
 
     <select id="countShop" resultType="int">
-        select count(*) from shop
+        select count(*) from canteendb.shop
+        where status != 2
     </select>
+
+    <select id="countQueryShop" resultType="int">
+        select count(*) from canteendb.shop
+        where (sid like concat('%',#{keyword},'%') or sname like concat('%',#{keyword},'%'))
+        and status != 2
+    </select>
+
+    <update id="changeShopStatus" parameterType="int">
+        update canteendb.shop
+        set status = 2
+        where rid = #{rid}
+    </update>
 </mapper>

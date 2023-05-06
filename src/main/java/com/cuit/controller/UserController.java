@@ -29,16 +29,11 @@ public class UserController {
             json.put("data", null);
             json.put("code", 1);
         } else {
-            if (map.get("uname") == null) {
-                String uname = "";
-            }
-            if (map.get("uid") == null) {
-                Integer uid = 0;
-            }
-            String uname = map.get("uname").toString();
-            Integer uid = Integer.parseInt(map.get("uid").toString());
-            Integer page = Integer.parseInt(map.get("page").toString());
-            List<User> users = userService.queryUserByUnameOrUid(uid, uname,page);
+            String keyword = map.get("keyword").toString();
+            Integer page = Integer.parseInt(map.get("pagenum").toString());
+            List<User> users = userService.queryUserByUnameOrUid(keyword,page);
+            Integer count = userService.countQureyUser(keyword,page);
+            json.put("count",count);
             json.put("data", users);
             json.put("code", 0);
         }
@@ -54,7 +49,7 @@ public class UserController {
             json.put("data", null);
             json.put("code", 1);
         } else {
-            Integer page = Integer.parseInt(map.get("page").toString());
+            Integer page = Integer.parseInt(map.get("pagenum").toString());
             Integer count = userService.countUser();
             List<User> users = userService.queryUserByPage(page);
             json.put("data",users);

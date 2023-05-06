@@ -45,8 +45,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<Room> queryRoomByRidOrRname(Integer rid, String rname,Integer page) {
-        List<Room> rooms = roomMapper.queryRoomByRidOrRname(rid,rname,page);
+    public List<Room> queryRoomByRidOrRname(String keyword, Integer page) {
+        List<Room> rooms = roomMapper.queryRoomByRidOrRname(keyword,page);
         return rooms;
     }
 
@@ -60,5 +60,17 @@ public class RoomServiceImpl implements RoomService {
     public Room queryRoomByRid(Integer rid) {
         Room room = roomMapper.queryRoomByRid(rid);
         return room;
+    }
+
+    @Override
+    public Integer countQueryRoom(String keyword, Integer page) {
+        Integer count = roomMapper.countQueryRoom(keyword,page);
+        return count;
+    }
+
+    @Override
+    public Integer roomStatus(Integer rid, Integer status) {
+        Integer i = roomMapper.roomStatus(rid,status);
+        return i;
     }
 }

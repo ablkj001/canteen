@@ -34,7 +34,7 @@
     <select id="queryDishesByPage" resultType="Dishes">
         select * from canteendb.dishes
         where sid = #{sid}
-        limit ${4*(page-1)},4
+        limit ${pagesize*(page-1)},#{pagesize}
     </select>
 
     <select id="queryDishesByDname" resultType="Dishes">
@@ -77,4 +77,15 @@
         select * from dishes
         where dname = #{dname} and sid = #{sid}
     </select>
+    
+    <select id="queryDishesBySidAndDname" resultType="Comment">
+        select * from canteendb.dishes
+        where sid = #{sid} and dname = #{dname}
+    </select>
+
+    <update id="changeStatusBySid" parameterType="int">
+        update canteendb.dishes
+        set status = 1
+        where sid = #{sid}
+    </update>
 </mapper>

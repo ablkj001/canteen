@@ -24,4 +24,6 @@ public interface ShopCarService {
     //根据carid获取购物车信息
     ShopCar queryShopCar(Integer carid);
 
+    //支付勾选的购物车中的菜品
+    Integer Order(Integer uid);
 }

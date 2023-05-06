@@ -30,7 +30,7 @@ public interface ShopMapper {
     Shop queryShopBySnameRid(@Param("sname") String sname, @Param("rid") Integer rid);
 
     //根据店铺名或店铺ID查询店铺
-    List<Shop> queryShopBySnameOrSid(@Param("sname") String sname,@Param("sid") Integer sid,@Param("page") Integer page);
+    List<Shop> queryShopBySnameOrSid(@Param("keyword") String keyword,@Param("page") Integer page);
 
     //编辑店铺信息
     Integer editShop(Shop shop);
@@ -40,4 +40,10 @@ public interface ShopMapper {
 
     //获取店铺总数
     Integer countShop();
+
+    //获取查询后店铺的总数
+    Integer countQueryShop(@Param("keyword") String keyword);
+
+    //删除食堂后改变店铺的状态
+    Integer changeShopStatus(@Param("rid") Integer rid);
 }

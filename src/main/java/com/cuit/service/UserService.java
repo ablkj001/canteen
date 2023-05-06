@@ -30,7 +30,7 @@ public interface UserService {
     RegisterResultEnum add(User user);
 
     //根据用户名或用户ID查询用户
-    List<User> queryUserByUnameOrUid(Integer uid,String uname,Integer page);
+    List<User> queryUserByUnameOrUid(String keyword,Integer page);
 
     //分页获取用户列表
     List<User> queryUserByPage(Integer page);
@@ -40,4 +40,7 @@ public interface UserService {
 
     //改变用户的状态
     Integer changeUserStatus(Integer uid,Integer status);
+
+    //统计查询后用户的数量
+    Integer countQureyUser(String keyword,Integer page);
 }
