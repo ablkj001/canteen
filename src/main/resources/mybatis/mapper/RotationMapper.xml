@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cuit.mapper.RotationMapper">
+
+    <!--  编辑轮播图推荐等级为2  -->
+    <update id="updateRotationPromote" parameterType="Dishes">
+        update dishes
+        set swiperlevel = 2
+        where did = #{did}
+    </update>
+
+    <!--  编辑推荐等级清空  -->
+    <update id="updateRotationReduce" parameterType="Dishes">
+        update dishes
+        set swiperlevel = 0
+        where did = #{did}
+    </update>
+
+    <!--  查询推荐等级为1的轮播图  -->
+    <select id="queryFirstGrade" resultType="Dishes">
+        select *
+        from dishes
+        where swiperlevel = 1
+    </select>
+
+    <!--  查询推荐等级为2的轮播图  -->
+    <select id="querySecondGrade" resultType="Dishes">
+        select *
+        from dishes
+        where swiperlevel = 2
+    </select>
+
+    <!--  获取总数  -->
+    <select id="countRotation" resultType="int">
+        select count(*)
+        from dishes
+        where swiperlevel = #{swiperlevel}
+    </select>
+
+</mapper>
+
+
