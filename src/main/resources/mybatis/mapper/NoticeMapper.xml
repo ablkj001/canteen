@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cuit.mapper.NoticeMapper">
+
+    <!--  添加公告  -->
+    <insert id="addNotice" parameterType="Notice">
+        insert into notice(nid,content,noticedate)
+        values (#{id},#{content},#{noticeDate})
+    </insert>
+
+    <!--  查询公告  -->
+    <select id="queryNotice" resultType="Notice">
+        select *
+        from notice
+        where content like '%${content}%'
+        order by noticedate desc
+        limit ${6*(page-1)},6
+    </select>
+
+    <!--  获取总数  -->
+    <select id="countNotice" resultType="int">
+        select count(*)
+        from notice
+        where content like '%${content}%'
+    </select>
+
+    <!--  通过id查询  -->
+    <select id="queryNoticeById" resultType="Notice">
+        select *
+        from notice
+        where nid = #{id}
+        order by noticedate desc
+    </select>
+
+    <!--  删除公告  -->
+    <delete id="deleteNotice" parameterType="Notice">
+        delete from notice
+        where nid = #{nid}
+    </delete>
+
+    <!--  编辑公告  -->
+    <update id="updateNotice" parameterType="Notice">
+        update notice
+        set content = #{content} ,noticedate = #{noticeDate}
+        where nid = #{nid}
+    </update>
+
+</mapper>
+
+
