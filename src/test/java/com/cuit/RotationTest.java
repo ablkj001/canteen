@@ -54,8 +54,9 @@ public class RotationTest {
     public void testB() {
 
         int page = 1;
-        System.out.println(rotationMapper.queryFirstGrade(page));
-        System.out.println(rotationMapper.querySecondGrade(page));
+        String dname = null;
+        System.out.println(rotationMapper.queryFirstGrade(dname,page));
+        System.out.println(rotationMapper.querySecondGrade(dname,page));
     }
 
     /**

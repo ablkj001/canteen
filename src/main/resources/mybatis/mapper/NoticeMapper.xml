@@ -5,15 +5,15 @@
 
     <!--  添加公告  -->
     <insert id="addNotice" parameterType="Notice">
-        insert into notice(nid,content,noticedate)
-        values (#{id},#{content},#{noticeDate})
+        insert into notice(nid,title,content,noticedate)
+        values (#{nid},#{title},#{content},#{noticeDate})
     </insert>
 
     <!--  查询公告  -->
     <select id="queryNotice" resultType="Notice">
         select *
         from notice
-        where content like '%${content}%'
+        where title like '%${title}%'
         order by noticedate desc
         limit ${6*(page-1)},6
     </select>
@@ -22,14 +22,14 @@
     <select id="countNotice" resultType="int">
         select count(*)
         from notice
-        where content like '%${content}%'
+        where title like '%${title}%'
     </select>
 
     <!--  通过id查询  -->
     <select id="queryNoticeById" resultType="Notice">
         select *
         from notice
-        where nid = #{id}
+        where nid = #{nid}
         order by noticedate desc
     </select>
 
@@ -42,7 +42,7 @@
     <!--  编辑公告  -->
     <update id="updateNotice" parameterType="Notice">
         update notice
-        set content = #{content} ,noticedate = #{noticeDate}
+        set title = #{title}, content = #{content} ,noticedate = #{noticeDate}
         where nid = #{nid}
     </update>
 

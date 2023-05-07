@@ -13,11 +13,14 @@ public interface RotationService {
     Integer updateRotationReduce(Integer id);
 
     // 查询等级1
-    List<Dishes> queryFirstGrade(Integer page);
+    List<Dishes> queryFirstGrade(String dname, Integer page);
 
     // 查询等级2
-    List<Dishes> querySecondGrade(Integer page);
+    List<Dishes> querySecondGrade(String dname, Integer page);
 
     // 获取总数
-    Integer countRotation(@Param("did") Integer level);
+    Integer countRotation(String dname, Integer level);
+
+    // 随机获取7张轮播图
+    List<Dishes> randomRotation();
 }

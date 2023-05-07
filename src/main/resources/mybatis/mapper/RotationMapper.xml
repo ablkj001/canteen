@@ -21,21 +21,30 @@
     <select id="queryFirstGrade" resultType="Dishes">
         select *
         from dishes
-        where swiperlevel = 1
+        where swiperlevel = 1 and dname like '%${dname}%'
+        limit ${2*(page-1)},2
     </select>
 
     <!--  查询推荐等级为2的轮播图  -->
     <select id="querySecondGrade" resultType="Dishes">
         select *
         from dishes
-        where swiperlevel = 2
+        where swiperlevel = 2 and dname like '%${dname}%'
+        limit ${2*(page-1)},2
     </select>
 
     <!--  获取总数  -->
     <select id="countRotation" resultType="int">
         select count(*)
         from dishes
-        where swiperlevel = #{swiperlevel}
+        where swiperlevel = #{swiperlevel} and dname like '%${dname}%'
+    </select>
+
+    <!-- 随机获取7条数据  -->
+    <select id="randomRotation" resultType="Dishes">
+        select *
+        from dishes
+        order by rand() limit 7
     </select>
 
 </mapper>

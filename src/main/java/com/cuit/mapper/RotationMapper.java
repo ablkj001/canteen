@@ -17,11 +17,14 @@ public interface RotationMapper {
     Integer updateRotationReduce(@Param("did") Integer id);
 
     // 查询等级1
-    List<Dishes> queryFirstGrade(Integer page);
+    List<Dishes> queryFirstGrade(@Param("dname") String dname, Integer page);
 
     // 查询等级2
-    List<Dishes> querySecondGrade(Integer page);
+    List<Dishes> querySecondGrade(@Param("dname") String dname, Integer page);
 
     // 获取总数
-    Integer countRotation(@Param("swiperlevel") Integer level);
+    Integer countRotation(@Param("dname") String dname, @Param("swiperlevel") Integer level);
+
+    // 随机获取7张轮播图
+    List<Dishes> randomRotation();
 }

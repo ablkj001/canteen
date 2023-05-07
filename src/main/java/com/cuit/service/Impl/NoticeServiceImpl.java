@@ -29,12 +29,12 @@ public class NoticeServiceImpl implements NoticeService{
 
     /**
      * 根据公告内容模糊查询
-     * @param content 公告内容
+     * @param title 公告标题
      * @return 公告列表
      */
     @Override
-    public List<Notice> queryNotice(String content , Integer page){
-        return noticeMapper.queryNotice(content , page);
+    public List<Notice> queryNotice(String title , Integer page){
+        return noticeMapper.queryNotice(title , page);
     }
 
 //    @Override
@@ -54,18 +54,16 @@ public class NoticeServiceImpl implements NoticeService{
 
     /**
      * 编辑公告
-     * @param id id
-     * @param content 内容
-     * @param noticeDate 时间
+     * @param notice 信息
      * @return 行数
      */
     @Override
-    public Integer updateNotice(Integer id, String content, Date noticeDate){ return noticeMapper.updateNotice(id,content,noticeDate); }
+    public Integer updateNotice(Notice notice){ return noticeMapper.updateNotice(notice); }
 
     /**
      * 获取总数
-     * @param content 内容
+     * @param title 标题
      * @return 数量
      */
-    public Integer countNotice(String content){ return noticeMapper.countNotice(content); }
+    public Integer countNotice(String title){ return noticeMapper.countNotice(title); }
 }

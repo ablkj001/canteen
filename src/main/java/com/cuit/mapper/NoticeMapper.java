@@ -15,17 +15,17 @@ public interface NoticeMapper {
     Integer addNotice(Notice notice);
 
     // 查询公告
-    List<Notice> queryNotice(@Param("content") String content, @Param("page") Integer page);
+    List<Notice> queryNotice(@Param("title") String title, @Param("page") Integer page);
 
     // 仅在测试类中测试使用,使用id查询
-    Notice queryNoticeById(@Param("id") Integer id);
+    Notice queryNoticeById(@Param("nid") Integer id);
 
     // 删除公告
     Integer deleteNotice(@Param("nid") Integer id);
 
     // 编辑公告
-    Integer updateNotice(@Param("nid") Integer id, @Param("content") String content, @Param("noticeDate") Date noticeDate);
+    Integer updateNotice(Notice notice);
 
     // 获取公告条数
-    Integer countNotice(@Param("content") String content);
+    Integer countNotice(@Param("title") String title);
 }

@@ -27,14 +27,18 @@ public class RotationServiceImpl implements RotationService {
 
     // 查询等级1
     @Override
-    public List<Dishes> queryFirstGrade(Integer page) { return rotationMapper.queryFirstGrade(page); }
+    public List<Dishes> queryFirstGrade(String dname, Integer page) { return rotationMapper.queryFirstGrade(dname, page); }
 
     // 查询等级2
     @Override
-    public List<Dishes> querySecondGrade(Integer page) { return rotationMapper.querySecondGrade(page); }
+    public List<Dishes> querySecondGrade(String dname, Integer page) { return rotationMapper.querySecondGrade(dname, page); }
 
     // 获取总数
     @Override
-    public Integer countRotation(Integer level) { return rotationMapper.countRotation(level); }
+    public Integer countRotation(String dname, Integer level) { return rotationMapper.countRotation(dname, level); }
+
+    // 随机获取7张轮播图
+    @Override
+    public List<Dishes> randomRotation(){ return rotationMapper.randomRotation(); }
 
 }

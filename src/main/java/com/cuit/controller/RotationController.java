@@ -22,7 +22,7 @@ public class RotationController {
     private RotationService rotationService;
 
     /**
-     * 轮播图晋升
+     * 对推荐等级为1的轮播图进行晋升
      * @param map 参数体
      * @param token token
      * @return 晋升情况
@@ -39,16 +39,26 @@ public class RotationController {
             // 获取值
             Integer id = Integer.parseInt(map.get("id").toString());
 
-            // 执行晋升操作
-            Integer result = rotationService.updateRotationPromote(id);
+            // 获取数据条数
+            int count = rotationService.countRotation("",2);
 
-            // 设置返回值
-            if (result > 0) {
-                json.put("message", "推荐等级晋升成功！");
-                json.put("code", 0);
-            } else {
-                json.put("message", "推荐等级晋升失败！");
+            // 可供前端展示的2级轮播图最多有7张
+            if(count > 6){
+                json.put("message", "可供展示的轮播图已到达最大数量限制,请先执行降级操作");
                 json.put("code", 1);
+            } else {
+
+                // 执行晋升操作
+                Integer result = rotationService.updateRotationPromote(id);
+
+                // 设置返回值
+                if (result > 0) {
+                    json.put("message", "推荐等级晋升成功！");
+                    json.put("code", 0);
+                } else {
+                    json.put("message", "推荐等级晋升失败！");
+                    json.put("code", 1);
+                }
             }
         }
         return json;
@@ -102,24 +112,29 @@ public class RotationController {
             json.put("code", 1);
         } else {
 
+            // 获取菜品名
+            String dname = map.get("dname").toString();
+
             // 页数
             Integer page = Integer.parseInt(map.get("page").toString());
 
             // 执行查询操作
-            List<Dishes> dishes = rotationService.queryFirstGrade(page);
+            List<Dishes> dishes = rotationService.queryFirstGrade(dname, page);
 
             // 获取数据条数
-            int count = rotationService.countRotation(1);
+            int count = rotationService.countRotation(dname,1);
 
             // 设置返回值
             json.put("data", dishes);
             json.put("count", count);
+            json.put("code", 0);
         }
         return json;
     }
 
     /**
-     * 查询推荐等级为2的轮播图
+     * 根据菜品名模糊查询推荐等级为2的轮播图,至多7张
+     * 菜品名为空,则查询所有
      * @param map 参数体
      * @param token token
      * @return 轮播图信息
@@ -133,18 +148,29 @@ public class RotationController {
             json.put("code", 1);
         } else {
 
-            // 页数
+            // 获取菜品名
+            String dname = map.get("dname").toString();
+
+            // 获取页数
             Integer page = Integer.parseInt(map.get("page").toString());
 
-            // 执行查询操作
-            List<Dishes> dishes = rotationService.querySecondGrade(page);
+            // 返回列表
+            List<Dishes> dishes;
 
             // 获取数据条数
-            int count = rotationService.countRotation(2);
+            int count = rotationService.countRotation(dname,2);
 
-            // 设置返回值
+            if (count == 0){ // 一张等级为2的都没有则随机返回7张
+                // 执行查询操作
+                dishes = rotationService.randomRotation();
+                count = 7;
+            } else { // 否则返回等级为2的
+                // 执行查询操作
+                dishes = rotationService.querySecondGrade(dname, page);
+            }
             json.put("data", dishes);
             json.put("count", count);
+            json.put("code", 0);
         }
         return json;
     }
