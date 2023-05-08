@@ -44,6 +44,7 @@ public class NoticeTest {
 
         Notice notice = new Notice();
         notice.setNid(1);
+        notice.setTitle("1");
         notice.setContent("测试内容1");
         notice.setNoticeDate(DateUtil.date());
 
@@ -63,9 +64,10 @@ public class NoticeTest {
         Notice notice = noticeMapper.queryNoticeById(id);
         System.out.println(notice);
 
-        String content = "更新后的内容";
-        Date noticeDate = DateUtil.date();
-        Integer result = noticeMapper.updateNotice(id,content,noticeDate);
+        notice.setTitle("11");
+        notice.setContent("更新后的内容");
+        notice.setNoticeDate(DateUtil.date());
+        Integer result = noticeMapper.updateNotice(notice);
         System.out.println(result);
     }
 
