@@ -10,7 +10,7 @@ public interface NoticeService {
     Integer addNotice(Notice notice);
 
     // 查询公告
-    List<Notice> queryNotice(String content, Integer page);
+    List<Notice> queryNotice(String title, Integer page);
 
 //    Notice queryNoticeById(Integer id);
 
@@ -18,8 +18,8 @@ public interface NoticeService {
     Integer deleteNotice(Integer id);
 
     // 编辑公告
-    Integer updateNotice(Integer id, String content, Date noticeDate);
+    Integer updateNotice(Notice notice);
 
     // 获取公告条数
-    Integer countNotice(String content);
+    Integer countNotice(String title);
 }

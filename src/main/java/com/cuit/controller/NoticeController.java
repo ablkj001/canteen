@@ -34,10 +34,12 @@ public class NoticeController {
             json.put("data", null);
             json.put("code", 1);
         } else {
+
             // 创建公告对象
             Notice notice = new Notice();
 
             // 初始化对象
+            notice.setTitle(map.get("title").toString());
             notice.setContent(map.get("content").toString());
             notice.setNoticeDate(DateUtil.date());
 
@@ -70,6 +72,7 @@ public class NoticeController {
             json.put("data", null);
             json.put("code", 1);
         } else {
+
             // 获取请求体中的参数
             Integer id = Integer.parseInt(map.get("id").toString());
 
@@ -103,13 +106,17 @@ public class NoticeController {
             json.put("code", 1);
         } else {
 
-            // 获取值
-            Integer id = Integer.parseInt(map.get("id").toString());
-            String content = map.get("content").toString();
-            Date noticeDate = DateUtil.date();
+            // 创建公告对象
+            Notice notice = new Notice();
+
+            // 初始化
+            notice.setNid(Integer.parseInt(map.get("id").toString()));
+            notice.setTitle(map.get("title").toString());
+            notice.setContent(map.get("content").toString());
+            notice.setNoticeDate(DateUtil.date());
 
             // 执行编辑操作
-            Integer result = noticeService.updateNotice(id, content, noticeDate);
+            Integer result = noticeService.updateNotice(notice);
 
             // 设置返回值
             if (result > 0) {
@@ -124,7 +131,7 @@ public class NoticeController {
     }
 
     /**
-     * 查询公告
+     * 根据标题模糊查询公告
      * @param map 参数体
      * @param token token
      * @return 列表和总数
@@ -138,21 +145,22 @@ public class NoticeController {
             json.put("code", 1);
         } else {
 
-            // 公告内容
-            String content = map.get("content").toString();
+            // 公告标题
+            String title = map.get("title").toString();
 
             // 页数
             Integer page = Integer.parseInt(map.get("page").toString());
 
             // 执行查询操作
-            List<Notice> notices = noticeService.queryNotice(content,page);
+            List<Notice> notices = noticeService.queryNotice(title,page);
 
             // 获取数据条数
-            int count = noticeService.countNotice(content);
+            int count = noticeService.countNotice(title);
 
             // 设置返回值
             json.put("data", notices);
             json.put("count", count);
+            json.put("code", 0);
         }
         return json;
     }
