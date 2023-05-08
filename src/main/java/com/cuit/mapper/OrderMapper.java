@@ -29,7 +29,7 @@ public interface OrderMapper {
     List<Order> queryOrderManagerList(@Param("sid") Integer sid);
 
     //店铺端修改订单状态
-    Integer changeOrderStatus(@Param("did") Integer did,@Param("orderid") String orderid);
+    Integer changeOrderStatus(Order order);
 
     //根据orderid查询订单详情
     List<Order> queryOrderByOrderid(@Param("orderid") String orderid);

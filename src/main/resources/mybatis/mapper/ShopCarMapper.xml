@@ -51,7 +51,7 @@
         where uid = #{uid} and status = 0
     </delete>
 
-    <select id="queryShopCarByStatus" parameterType="ShopCar">
+    <select id="queryShopCarByStatus" resultType="ShopCar">
         select * from canteendb.shopcar
         where uid = #{uid} and status = 0
     </select>

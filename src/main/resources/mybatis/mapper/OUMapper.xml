@@ -6,18 +6,40 @@
 <mapper namespace="com.cuit.mapper.OUMapper">
 
     <insert id="addOU" parameterType="OU">
-        insert into canteendb.ou(orderid, uid,date)
-        values (#{orderid},#{uid},#{date})
+        insert into canteendb.ou(orderid, uid,date,status)
+        values (#{orderid},#{uid},#{date},#{status})
     </insert>
 
-    <select id="queryOU" resultType="OU">
+    <select id="queryOUY" resultType="OU">
         select * from canteendb.ou
-        where uid = #{uid}
+        where uid = #{uid} and status = 0
         limit ${pagesize*(page-1)},#{pagesize}
     </select>
 
-    <select id="countOU" resultType="int">
+    <select id="queryOUN" resultType="OU">
+        select * from canteendb.ou
+        where uid = #{uid} and status != 0
+        limit ${pagesize*(page-1)},#{pagesize}
+    </select>
+
+    <select id="countOUY" resultType="int">
         select count(*) from canteendb.ou
-        where uid = #{uid}
+        where uid = #{uid} and status = 0
+    </select>
+
+    <select id="countOUN" resultType="int">
+        select count(*) from canteendb.ou
+        where uid = #{uid} and status != 0
+    </select>
+
+    <update id="editOUStatus" parameterType="int">
+        update canteendb.ou
+        set status = #{status}
+        where ouid = #{ouid}
+    </update>
+
+    <select id="queryOUByOrderid" resultType="OU">
+        select * from canteendb.ou
+        where orderid = #{orderid}
     </select>
 </mapper>

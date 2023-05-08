@@ -7,6 +7,7 @@ public class DI {
     private Integer dprice;
     private Integer count;
     private Integer payment;
+    private Integer status;
 
     public DI() {
     }
@@ -19,6 +20,15 @@ public class DI {
         this.payment = payment;
     }
 
+    public DI(Integer did, String dname, Integer dprice, Integer count, Integer payment, Integer status) {
+        this.did = did;
+        this.dname = dname;
+        this.dprice = dprice;
+        this.count = count;
+        this.payment = payment;
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "DI{" +
@@ -27,6 +37,7 @@ public class DI {
                 ", dprice=" + dprice +
                 ", count=" + count +
                 ", payment=" + payment +
+                ", status=" + status +
                 '}';
     }
 
@@ -68,5 +79,13 @@ public class DI {
 
     public void setPayment(Integer payment) {
         this.payment = payment;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

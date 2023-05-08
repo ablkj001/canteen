@@ -8,6 +8,7 @@ public class OU {
     private String orderid;
     private Integer uid;
     private Date date;
+    private Integer status;
 
     public OU() {
     }
@@ -23,6 +24,13 @@ public class OU {
         this.date = date;
     }
 
+    public OU(String orderid, Integer uid, Date date, Integer status) {
+        this.orderid = orderid;
+        this.uid = uid;
+        this.date = date;
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "OU{" +
@@ -30,6 +38,7 @@ public class OU {
                 ", orderid='" + orderid + '\'' +
                 ", uid=" + uid +
                 ", date=" + date +
+                ", status=" + status +
                 '}';
     }
 
@@ -63,5 +72,13 @@ public class OU {
 
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

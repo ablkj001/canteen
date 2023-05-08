@@ -49,7 +49,7 @@ public class OrderController {
     //购物车结算功能
     @RequestMapping("/order/shopcar")
     @ResponseBody
-    public JSONObject orderShopcar(@RequestHeader("Authorization") String token, @RequestBody Map map){
+    public JSONObject orderShopcar(@RequestHeader("Authorization") String token){
         JSONObject json = new JSONObject();
         if (token == null) {
             json.put("data", null);
@@ -97,7 +97,10 @@ public class OrderController {
             Integer uid = user.getUid();
             Integer page = Integer.parseInt(map.get("pagenum").toString());
             Integer pagesize = Integer.parseInt(map.get("pagesize").toString());
-            List<OR> ors = orderService.queryOrderByUid(uid,page,pagesize);
+            Integer isdone = Integer.parseInt(map.get("isdone").toString());
+            List<OR> ors = orderService.queryOrderByUid(uid,page,pagesize,isdone);
+            Integer count = orderService.countOrderByUid(uid,isdone);
+            json.put("count",count);
             json.put("data",ors);
             json.put("code",0);
         }
@@ -118,7 +121,10 @@ public class OrderController {
             Integer sid = usService.queryUS(uid).getSid();
             Integer page = Integer.parseInt(map.get("pagenum").toString());
             Integer pagesize = Integer.parseInt(map.get("pagesize").toString());
-            List<OR> ors = orderService.queryOrderBySid(sid,page,pagesize);
+            Integer isdone = Integer.parseInt(map.get("isdone").toString());
+            List<OR> ors = orderService.queryOrderBySid(sid,page,pagesize,isdone);
+            Integer count = orderService.countOrderBySid(sid,isdone);
+            json.put("count",count);
             json.put("data",ors);
             json.put("code",0);
         }

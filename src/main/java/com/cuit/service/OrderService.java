@@ -15,12 +15,18 @@ public interface OrderService {
     Integer insertOrder(Integer uid,Integer sid,Integer did,Integer count);
 
     //用户端分页显示订单
-    List<OR> queryOrderByUid(Integer uid,Integer page,Integer pagesize);
+    List<OR> queryOrderByUid(Integer uid,Integer page,Integer pagesize,Integer isdone);
 
     //店铺端分页显示订单，逻辑和用户端一样
-    List<OR> queryOrderBySid(Integer sid,Integer page,Integer pagesize);
+    List<OR> queryOrderBySid(Integer sid,Integer page,Integer pagesize,Integer isdone);
 
     //用户端订单分三种状态:1.未完成 2.部分完成 3.已完成
     //店铺端改变订单状态
     Integer changeOrderStatus(Integer did,String orderid);
+
+    //获取用户端订单的总数
+    Integer countOrderByUid(Integer uid,Integer isdone);
+
+    //获取店铺端订单的总数
+    Integer countOrderBySid(Integer sid,Integer isdone);
 }

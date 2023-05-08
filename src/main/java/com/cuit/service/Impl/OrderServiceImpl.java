@@ -6,6 +6,7 @@ import com.cuit.mapper.*;
 import com.cuit.pojo.*;
 import com.cuit.service.OrderService;
 import com.cuit.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,11 +79,11 @@ public class OrderServiceImpl implements OrderService {
         for(String key:keySet){
             //先生成一个用户订单对象
             //再往用户订单关系表中插入信息
-            OU ou = new OU(key,uid,date);
+            OU ou = new OU(key,uid,date,2);
             ouMapper.addOU(ou);
             //生成一个店铺订单关系
             //再往店铺订单关系表中插入数据
-            OS os = new OS(key,map.get(key),date);
+            OS os = new OS(key,map.get(key),date,2);
             osMapper.addOS(os);
         }
         return count;
@@ -110,11 +111,11 @@ public class OrderServiceImpl implements OrderService {
         //生成order对象
         Order order = new Order(onumber,orderid,uid,sid,did,payment,count,date);
         //生成os对象
-        OS os = new OS(orderid,sid,date);
+        OS os = new OS(orderid,sid,date,2);
         //往关联表中添加关系
         osMapper.addOS(os);
         //生成ou对象
-        OU ou = new OU(orderid,uid,date);
+        OU ou = new OU(orderid,uid,date,2);
         //往关联表中添加关系
         ouMapper.addOU(ou);
         //将订单插入数据库
@@ -124,9 +125,17 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public List<OR> queryOrderByUid(Integer uid,Integer page,Integer pagesize) {
-        //首先根据uid分页获取与当前用户的关系
-        List<OU> ous = ouMapper.queryOU(uid,page,pagesize);
+    public List<OR> queryOrderByUid(Integer uid,Integer page,Integer pagesize,Integer isdone) {
+        //如果isdone是0时查询所有未完成的订单
+        List<OU> ous;
+        //isdone为1时查询所有已完成的订单
+        if(isdone == 0){
+            //根据uid分页获取与当前用户未完成的订单
+            ous = ouMapper.queryOUN(uid,page,pagesize);
+        }else {
+            //根据uid分页获取与当前用户已完成的订单
+            ous = ouMapper.queryOUY(uid,page,pagesize);
+        }
         //获取用户信息
         User user = userMapper.queryUserById(uid);
         //然后将关系中的订单信息封装到列表中
@@ -150,7 +159,7 @@ public class OrderServiceImpl implements OrderService {
                 dis.add(di);
                 total = total + order.getPayment();
                 //如果当前订单未完成，则将flag往上加个一
-                if(order.getOstatus() == 1){
+                if(order.getStatus() == 1){
                     flag = flag + 1;
                 }
             }
@@ -176,8 +185,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public List<OR> queryOrderBySid(Integer sid,Integer page,Integer pagesize) {
-        List<OS> oss = osMapper.queryOS(sid,page,pagesize);
+    public List<OR> queryOrderBySid(Integer sid,Integer page,Integer pagesize,Integer isdone) {
+        List<OS> oss;
+        if(isdone == 0){
+            //根据sid分页获取与当前用户未完成的订单
+            oss = osMapper.queryOSN(sid,page,pagesize);
+        }else {
+            //根据sid分页获取与当前用户已完成的订单
+            oss = osMapper.queryOSY(sid,page,pagesize);
+        }
         Shop shop = shopMapper.queryShopBySid(sid);
         List<OR> ors = new ArrayList<>();
         for(OS os : oss){
@@ -187,10 +203,10 @@ public class OrderServiceImpl implements OrderService {
             Integer flag = 0;
             for(Order order:orders){
                 Dishes dishes = dishesMapper.queryDishesByDid(order.getDid());
-                DI di = new DI(dishes.getDid(),dishes.getDname(),dishes.getDprice(),order.getQuantity(),order.getPayment());
+                DI di = new DI(dishes.getDid(),dishes.getDname(),dishes.getDprice(),order.getQuantity(),order.getPayment(),order.getStatus());
                 dis.add(di);
                 total = total + order.getPayment();
-                if(order.getOstatus() == 1){
+                if(order.getStatus() == 1){
                     flag = flag + 1;
                 }
             }
@@ -210,8 +226,61 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public Integer changeOrderStatus(Integer did,String orderid) {
-        Integer i = orderMapper.changeOrderStatus(did,orderid);
+        Order order1 = new Order();
+        //更改订单中菜品的状态
+        order1.setOrderid(orderid);
+        order1.setDid(did);
+        Integer i = orderMapper.changeOrderStatus(order1);
+        //循环遍历当前订单中的菜品
+        List<Order> orders = orderMapper.queryOrderByOrderid(orderid);
+        //用于判断当前订单中完成订单的个数
+        Integer flag = 0;
+        //获取店铺订单关系
+        OS os = osMapper.queryOSByOrderid(orderid);
+        //获取用户订单关系
+        OU ou = ouMapper.queryOUByOrderid(orderid);
+        //循环遍历
+        for(Order order:orders){
+            if(order.getStatus() == 1){
+                flag = flag + 1;
+            }
+        }
+        Integer status;
+        if(flag == 0){
+            status = 0;
+        }else if(flag == orders.size()){
+            status = 2;
+        } else {
+            status = 1;
+        }
+        os.setStatus(status);
+        ou.setStatus(status);
+        osMapper.edirOSStatus(os.getOsid(),os.getStatus());
+        ouMapper.editOUStatus(ou.getOuid(),ou.getStatus());
         return i;
+    }
+
+    @Override
+    public Integer countOrderByUid(Integer uid, Integer isdone) {
+        Integer count = 0;
+        if(isdone == 0){
+            count = ouMapper.countOUN(uid);
+        } else {
+            count = ouMapper.countOUY(uid);
+        }
+        return count;
+    }
+
+    @Override
+    public Integer countOrderBySid(Integer sid, Integer isdone) {
+        Integer count = 0;
+        if(isdone == 0){
+            count = osMapper.countOSN(sid);
+        } else {
+            count = osMapper.countOSY(sid);
+        }
+        return count;
     }
 }

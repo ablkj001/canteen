@@ -8,6 +8,7 @@ public class OS {
     private String orderid;
     private Integer sid;
     private Date date;
+    private Integer status;
 
     public OS() {
     }
@@ -23,6 +24,13 @@ public class OS {
         this.date = date;
     }
 
+    public OS(String orderid, Integer sid, Date date, Integer status) {
+        this.orderid = orderid;
+        this.sid = sid;
+        this.date = date;
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "OS{" +
@@ -30,7 +38,16 @@ public class OS {
                 ", orderid='" + orderid + '\'' +
                 ", sid=" + sid +
                 ", date=" + date +
+                ", status=" + status +
                 '}';
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getDate() {

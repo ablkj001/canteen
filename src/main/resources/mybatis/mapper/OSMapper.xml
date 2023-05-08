@@ -6,19 +6,40 @@
 <mapper namespace="com.cuit.mapper.OSMapper">
 
     <insert id="addOS" parameterType="OS">
-        insert into canteendb.os(orderid, sid,date)
-        values (#{orderid},#{sid},#{date})
+        insert into canteendb.os(orderid, sid, date,status)
+        values (#{orderid},#{sid},#{date},#{status})
     </insert>
 
-    <select id="queryOS" resultType="OS">
+    <select id="queryOSY" resultType="OS">
         select * from canteendb.os
-        where sid = #{sid}
+        where sid = #{sid} and status = 0
         limit ${pagesize*(page-1)},#{pagesize}
     </select>
 
-    <select id="countOS" resultType="int">
-        select count(*) from canteendb.os
-        where sid = #{sid}
+    <select id="queryOSN" resultType="OS">
+        select * from canteendb.os
+        where sid = #{sid} and status != 0
+        limit ${pagesize*(page-1)},#{pagesize}
     </select>
 
+    <select id="countOSY" resultType="int">
+        select count(*) from canteendb.os
+        where sid = #{sid} and status = 0
+    </select>
+
+    <select id="countOSN" resultType="int">
+        select count(*) from canteendb.os
+        where sid = #{sid} and status != 0
+    </select>
+
+    <update id="edirOSStatus" parameterType="int">
+        update canteendb.os
+        set status = #{status}
+        where osid = #{osid}
+    </update>
+
+    <select id="queryOSByOrderid" resultType="OS">
+        select * from canteendb.os
+        where orderid = #{orderid}
+    </select>
 </mapper>

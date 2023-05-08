@@ -17,6 +17,7 @@ import java.util.Map;
  */
 @Controller
 public class NoticeController {
+
     @Autowired
     private NoticeService noticeService;
 
@@ -153,6 +154,7 @@ public class NoticeController {
             // 设置返回值
             json.put("data", notices);
             json.put("count", count);
+            json.put("code",0);
         }
         return json;
     }

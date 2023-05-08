@@ -5,38 +5,38 @@
 
 <mapper namespace="com.cuit.mapper.OrderMapper">
     <insert id="addOrder" parameterType="Order">
-        insert into canteendb."order"(onumber, uid, did, payment, quantity, status)
-        values (#{onumber},#{uid},#{did},#{payment},#{quantity},#{status})
+        insert into canteendb.orders(onumber,orderid, uid, sid ,did, payment, quantity, bdate,status)
+        values (#{onumber},#{orderid},#{uid},#{sid},#{did},#{payment},#{quantity},#{bdate},#{status})
     </insert>
 
-    <update id="changeOrderStatus" parameterType="int">
-        update canteendb."order"
+    <update id="changeOrderStatus" parameterType="Order">
+        update canteendb.orders
         set status = 0
         where did = #{did} and orderid = #{orderid}
     </update>
 
     <select id="countUserOrder" resultType="int">
-        select count(distinct orderid) from canteendb."order"
+        select count(distinct orderid) from canteendb.orders
         where uid = #{uid}
     </select>
 
     <select id="countShopOrder" resultType="int">
-        select count(distinct orderid) from canteendb."order"
+        select count(distinct orderid) from canteendb.orders
         where sid = #{sid}
     </select>
 
     <select id="queryOrderUserList" resultType="Order">
-        select * from canteendb."order"
+        select * from canteendb.orders
         where uid = #{uid}
     </select>
 
     <select id="queryOrderManagerList" resultType="Order">
-        select * from canteendb."order"
+        select * from canteendb.orders
         where sid = #{sid}
     </select>
 
     <select id="queryOrderByOrderid" resultType="Order">
-        select * from canteendb."order"
+        select * from canteendb.orders
         where orderid = #{orderid}
     </select>
 </mapper>

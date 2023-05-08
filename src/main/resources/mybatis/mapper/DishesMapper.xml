@@ -39,7 +39,7 @@
 
     <select id="queryDishesByDname" resultType="Dishes">
         select * from canteendb.dishes
-        where sid = #{sid} and dname like concat('%',#{dname},'%')
+        where sid = #{sid} and (dname like concat('%',#{dname},'%') or status = #{dname})
         limit ${4*(page-1)},4
     </select>
 

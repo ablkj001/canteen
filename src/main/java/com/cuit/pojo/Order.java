@@ -13,7 +13,7 @@ public class Order {
     private Integer payment;            //总金额
     private Integer quantity;           //菜品数量
     private Date bdate;                 //购买日期
-    private Integer ostatus = 1;        //默认为未完成状态0为已完成，1为未完成
+    private Integer status = 1;        //默认为未完成状态0为已完成，1为未完成
 
     @Override
     public String toString() {
@@ -27,7 +27,7 @@ public class Order {
                 ", payment=" + payment +
                 ", quantity=" + quantity +
                 ", bdate=" + bdate +
-                ", ostatus=" + ostatus +
+                ", status=" + status +
                 '}';
     }
 
@@ -103,28 +103,28 @@ public class Order {
         this.bdate = bdate;
     }
 
-    public Integer getOstatus() {
-        return ostatus;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setOstatus(Integer ostatus) {
-        this.ostatus = ostatus;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Order() {
     }
 
-    public Order(String onumber, Integer uid, Integer did, Integer payment, Integer quantity, Date bdate, Integer ostatus) {
+    public Order(String onumber, Integer uid, Integer did, Integer payment, Integer quantity, Date bdate, Integer status) {
         this.onumber = onumber;
         this.uid = uid;
         this.did = did;
         this.payment = payment;
         this.quantity = quantity;
         this.bdate = bdate;
-        this.ostatus = ostatus;
+        this.status = status;
     }
 
-    public Order(String onumber, String orderid, Integer uid, Integer sid, Integer did, Integer payment, Integer quantity, Date bdate, Integer ostatus) {
+    public Order(String onumber, String orderid, Integer uid, Integer sid, Integer did, Integer payment, Integer quantity, Date bdate, Integer status) {
         this.onumber = onumber;
         this.orderid = orderid;
         this.uid = uid;
@@ -133,10 +133,10 @@ public class Order {
         this.payment = payment;
         this.quantity = quantity;
         this.bdate = bdate;
-        this.ostatus = ostatus;
+        this.status = status;
     }
 
-    public Order(String onumber, Integer uid, Integer sid, Integer did, Integer payment, Integer quantity, Date bdate, Integer ostatus) {
+    public Order(String onumber, Integer uid, Integer sid, Integer did, Integer payment, Integer quantity, Date bdate, Integer status) {
         this.onumber = onumber;
         this.uid = uid;
         this.sid = sid;
@@ -144,10 +144,10 @@ public class Order {
         this.payment = payment;
         this.quantity = quantity;
         this.bdate = bdate;
-        this.ostatus = ostatus;
+        this.status = status;
     }
 
-    public Order(Integer oid, String onumber, Integer uid, Integer did, Integer payment, Integer quantity, Date bdate, Integer ostatus) {
+    public Order(Integer oid, String onumber, Integer uid, Integer did, Integer payment, Integer quantity, Date bdate, Integer status) {
         this.oid = oid;
         this.onumber = onumber;
         this.uid = uid;
@@ -155,7 +155,7 @@ public class Order {
         this.payment = payment;
         this.quantity = quantity;
         this.bdate = bdate;
-        this.ostatus = ostatus;
+        this.status = status;
     }
 
     public Order(String onumber, String orderid, Integer uid, Integer sid, Integer did, Integer payment, Integer quantity, Date bdate) {
