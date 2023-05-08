@@ -20,7 +20,7 @@ public interface RotationMapper {
     List<Dishes> queryFirstGrade(@Param("dname") String dname, Integer page);
 
     // 查询等级2
-    List<Dishes> querySecondGrade(@Param("dname") String dname, Integer page);
+    List<Dishes> querySecondGrade(@Param("dname") String dname, Integer page, @Param("pagesize") Integer pagesize);
 
     // 获取总数
     Integer countRotation(@Param("dname") String dname, @Param("swiperlevel") Integer level);

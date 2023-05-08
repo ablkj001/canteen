@@ -154,6 +154,9 @@ public class RotationController {
             // 获取页数
             Integer page = Integer.parseInt(map.get("page").toString());
 
+            // 获取页数
+            Integer pagesize = Integer.parseInt(map.get("pagesize").toString());
+
             // 返回列表
             List<Dishes> dishes;
 
@@ -164,13 +167,15 @@ public class RotationController {
                 // 执行查询操作
                 dishes = rotationService.randomRotation();
                 count = 7;
+                json.put("code", 1);
             } else { // 否则返回等级为2的
                 // 执行查询操作
-                dishes = rotationService.querySecondGrade(dname, page);
+                dishes = rotationService.querySecondGrade(dname, page, pagesize);
+                json.put("code", 0);
             }
+
             json.put("data", dishes);
             json.put("count", count);
-            json.put("code", 0);
         }
         return json;
     }

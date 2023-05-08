@@ -110,7 +110,7 @@ public class NoticeController {
             Notice notice = new Notice();
 
             // 初始化
-            notice.setNid(Integer.parseInt(map.get("id").toString()));
+            notice.setNid(Integer.parseInt(map.get("nid").toString()));
             notice.setTitle(map.get("title").toString());
             notice.setContent(map.get("content").toString());
             notice.setNoticeDate(DateUtil.date());

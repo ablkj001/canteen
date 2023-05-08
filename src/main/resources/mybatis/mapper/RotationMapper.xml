@@ -30,7 +30,7 @@
         select *
         from dishes
         where swiperlevel = 2 and dname like '%${dname}%'
-        limit ${2*(page-1)},2
+        limit ${pagesize*(page-1)},#{pagesize}
     </select>
 
     <!--  获取总数  -->

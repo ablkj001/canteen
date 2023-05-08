@@ -16,7 +16,7 @@ public interface RotationService {
     List<Dishes> queryFirstGrade(String dname, Integer page);
 
     // 查询等级2
-    List<Dishes> querySecondGrade(String dname, Integer page);
+    List<Dishes> querySecondGrade(String dname, Integer page, Integer pagesize);
 
     // 获取总数
     Integer countRotation(String dname, Integer level);

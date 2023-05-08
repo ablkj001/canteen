@@ -82,7 +82,7 @@ public class DishesController {
         return json;
     }
 
-    //根据随机数生成首页的七张推介菜品
+    //根据随机数生成首页的推介菜品（总共七张）
     @RequestMapping("/dishes/random")
     @ResponseBody
     public JSONObject getRandomDishes(@RequestHeader("Authorization") String token) {
@@ -213,6 +213,7 @@ public class DishesController {
         } else {
             String dimage;
             String swiper;
+            String detail;
             if(map.get("dimage") == null){
                 dimage = "";
             }else {
@@ -223,11 +224,15 @@ public class DishesController {
             }else {
                 swiper = map.get("swiper").toString();
             }
+            if(map.get("detail") == null){
+                detail = "";
+            }else {
+                detail = map.get("detail").toString();
+            }
             Integer did = Integer.parseInt(map.get("did").toString());
             String dname = map.get("dname").toString();
             Integer dprice = Integer.parseInt(map.get("dprice").toString());
             Integer sid = Integer.parseInt(map.get("sid").toString());
-            String detail = map.get("detail").toString();
             Integer status = Integer.parseInt(map.get("status").toString());
             Integer dishelevel = Integer.parseInt(map.get("dishelevel").toString());
             Integer swiperlevel = Integer.parseInt(map.get("swiperlevel").toString());

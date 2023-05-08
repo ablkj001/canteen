@@ -31,7 +31,7 @@ public class RotationServiceImpl implements RotationService {
 
     // 查询等级2
     @Override
-    public List<Dishes> querySecondGrade(String dname, Integer page) { return rotationMapper.querySecondGrade(dname, page); }
+    public List<Dishes> querySecondGrade(String dname, Integer page,  Integer pagesize) { return rotationMapper.querySecondGrade(dname, page ,pagesize); }
 
     // 获取总数
     @Override
