@@ -15,13 +15,20 @@ public class USServiceImpl implements USService {
 
     @Override
     public Integer addService(Integer uid, Integer sid) {
-        Integer i = usMapper.addUS(uid,sid);
+        US us = new US(uid,sid);
+        Integer i = usMapper.addUS(us);
         return i;
     }
 
     @Override
     public US queryUS(Integer uid) {
         US us = usMapper.queryUS(uid);
+        return us;
+    }
+
+    @Override
+    public US queryUSBySid(Integer sid) {
+        US us = usMapper.queryUSBySid(sid);
         return us;
     }
 }

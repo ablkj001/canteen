@@ -10,6 +10,11 @@ public class US {
     public US() {
     }
 
+    public US(Integer uid, Integer sid) {
+        this.uid = uid;
+        this.sid = sid;
+    }
+
     public US(Integer uid, Integer sid, String srotation) {
         this.uid = uid;
         this.sid = sid;

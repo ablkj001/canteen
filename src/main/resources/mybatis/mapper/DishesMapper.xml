@@ -88,4 +88,62 @@
         set status = 1
         where sid = #{sid}
     </update>
+
+    <!--  编辑菜品推荐等级为2  -->
+    <update id="updateDishesPromote" parameterType="Dishes">
+        update dishes
+        set dishelevel = 2 and status != 1
+        where did = #{did}
+    </update>
+
+    <!--  编辑推荐等级清空  -->
+    <update id="updateDishesReduce" parameterType="Dishes">
+        update dishes
+        set dishelevel = 0
+        where did = #{did}
+    </update>
+
+    <!--  查询推荐等级为1的菜品 -->
+    <select id="queryFirstGrade" resultType="Dishes">
+        select *
+        from dishes
+        where dishelevel = 1 and dname like '%${dname}%' and status != 1
+        limit ${4*(page-1)},4
+    </select>
+
+    <!--  查询推荐等级为2的菜品 -->
+    <select id="querySecondGrade" resultType="Dishes">
+        select *
+        from dishes
+        where dishelevel = 2 and dname like '%${dname}%' and status != 1
+        limit ${pagesize*(page-1)},#{pagesize}
+    </select>
+
+    <!--  获取总数  -->
+    <select id="countDishe" resultType="int">
+        select count(*)
+        from dishes
+        where dishelevel = #{dishelevel} and dname like '%${dname}%' and status != 1
+    </select>
+
+    <!-- 随机获取7条数据  -->
+    <select id="randomDishes" resultType="Dishes">
+        select *
+        from dishes
+        where dishelevel != 2 and status != 1
+        order by rand() limit #{n}
+    </select>
+
+    <select id="querySecondGrade1" resultType="Dishes">
+        select *
+        from dishes
+        where dishelevel = 2 and dname like '%${dname}%'
+        limit ${pagesize*(page-1)},#{pagesize}
+    </select>
+
+    <select id="countDishe1" resultType="int">
+        select count(*)
+        from dishes
+        where dishelevel = #{dishelevel} and dname like '%${dname}%'
+    </select>
 </mapper>

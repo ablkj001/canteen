@@ -9,4 +9,7 @@ public interface USService {
 
     //根据uid获取用户与店铺之间的关系
     US queryUS(Integer uid);
+
+    //根据sid获取用户与店铺之间的关系
+    US queryUSBySid(Integer sid);
 }

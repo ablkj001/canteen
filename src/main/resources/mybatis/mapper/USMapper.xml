@@ -5,7 +5,7 @@
 
 <mapper namespace="com.cuit.mapper.USMapper">
 
-    <insert id="addUS" parameterType="int">
+    <insert id="addUS" parameterType="US">
         insert into canteendb.us(uid, sid)
         values (#{uid},#{sid})
     </insert>
@@ -13,5 +13,10 @@
     <select id="queryUS" resultType="US">
         select * from canteendb.us
         where uid = #{uid}
+    </select>
+
+    <select id="queryUSBySid" resultType="US">
+        select * from canteendb.us
+        where sid = #{sid}
     </select>
 </mapper>

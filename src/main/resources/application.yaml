@@ -1,4 +1,9 @@
 spring:
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+  mvc:
+    static-path-pattern: /static/**
   datasource:
     username: root
     url: jdbc:mysql://localhost:3306/canteendb?serverTimezone=CTT&useUnicode=true&characterEncoding=utf-8
@@ -6,6 +11,7 @@ spring:
     password: 123456
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+
 #mybatis整合
 mybatis:
   type-aliases-package: com.cuit.pojo

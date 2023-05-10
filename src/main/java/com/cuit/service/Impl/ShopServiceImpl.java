@@ -2,6 +2,7 @@ package com.cuit.service.Impl;
 
 import com.cuit.mapper.ShopMapper;
 import com.cuit.pojo.Shop;
+import com.cuit.pojo.ShopCar;
 import com.cuit.service.ShopService;
 import com.cuit.util.LoginResultEnum;
 import com.cuit.util.RegisterResultEnum;
@@ -93,5 +94,11 @@ public class ShopServiceImpl implements ShopService {
     public Integer changeShopStatus(Integer rid) {
         Integer i = shopMapper.changeShopStatus(rid);
         return i;
+    }
+
+    @Override
+    public Shop queryShopCarDishesBySid(Integer sid) {
+        Shop shop = shopMapper.queryShopCarBySid(sid);
+        return shop;
     }
 }

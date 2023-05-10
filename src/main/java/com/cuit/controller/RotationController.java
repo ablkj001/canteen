@@ -154,7 +154,7 @@ public class RotationController {
             // 获取页数
             Integer page = Integer.parseInt(map.get("page").toString());
 
-            // 获取页数
+            // 获取页数大小
             Integer pagesize = Integer.parseInt(map.get("pagesize").toString());
 
             // 返回列表

@@ -47,4 +47,28 @@ public interface DishesService {
 
     //将当前的店铺的菜品均置为下架状态
     Integer changeStatusBySid(Integer sid);
+
+    // 晋升菜品推介等级
+    Integer updateDishesPromote(Integer id);
+
+    // 降低菜品推介等级
+    Integer updateDishesReduce(Integer id);
+
+    // 查询等级1
+    List<Dishes> queryFirstGrade(String dname, Integer page);
+
+    // 查询等级2
+    List<Dishes> querySecondGrade(String dname, Integer page, Integer pagesize);
+
+    // 获取总数
+    Integer countDishes(String dname, Integer level);
+
+    // 随机获取n个推介的菜品
+    List<Dishes> randomDishes(Integer n);
+
+    //管理员查询推介的菜品
+    List<Dishes> querySecondGrade1(String dname,Integer page,Integer pagesize);
+
+    //管理员界面获取推介菜品的数量
+    Integer countDishes1(String dname,Integer level);
 }

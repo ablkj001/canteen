@@ -55,4 +55,28 @@ public interface DishesMapper {
 
     //将当前的店铺的菜品均置为下架状态
     Integer changeStatusBySid(@Param("sid") Integer sid);
+
+    // 晋升等级
+    Integer updateDishesPromote(@Param("did") Integer id);
+
+    // 降低等级
+    Integer updateDishesReduce(@Param("did") Integer id);
+
+    // 查询等级1
+    List<Dishes> queryFirstGrade(@Param("dname") String dname, Integer page);
+
+    // 查询等级2
+    List<Dishes> querySecondGrade(@Param("dname") String dname, Integer page, @Param("pagesize") Integer pagesize);
+
+    // 获取总数
+    Integer countDishe(@Param("dname") String dname, @Param("dishelevel") Integer level);
+
+    // 随机获取n个菜品
+    List<Dishes> randomDishes(@Param("n") Integer n);
+
+    //管理员获取推介的菜品（包括上架以及下架的）
+    List<Dishes> querySecondGrade1(@Param("dname") String dname,@Param("page") Integer page,@Param("pagesize") Integer pagesize);
+
+    //管理员端获取菜品总数
+    Integer countDishe1(@Param("dname") String dname,@Param("dishelevel") Integer level);
 }

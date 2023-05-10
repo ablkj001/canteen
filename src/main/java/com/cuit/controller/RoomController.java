@@ -3,9 +3,9 @@ package com.cuit.controller;
 import com.cuit.combine.RS;
 import com.cuit.pojo.Room;
 import com.cuit.pojo.Shop;
-import com.cuit.service.DishesService;
-import com.cuit.service.RoomService;
-import com.cuit.service.ShopService;
+import com.cuit.pojo.US;
+import com.cuit.pojo.User;
+import com.cuit.service.*;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +27,12 @@ public class RoomController {
 
     @Autowired
     private DishesService dishesService;
+
+    @Autowired
+    private USService usService;
+
+    @Autowired
+    private UserService userService;
 
     //用户首页食堂的列表
     @RequestMapping("/room/list")
@@ -150,6 +156,10 @@ public class RoomController {
             for(Shop shop:shops){
                 //改变每一个菜品的状态，将菜品全部置为删除状态
                 dishesService.changeStatusBySid(shop.getSid());
+                //先根据店铺ID获取店铺管理员
+                US us = usService.queryUSBySid(shop.getSid());
+                //再将当前店铺的用户的状态置为删除状态
+                Integer i = userService.changeUserStatus(us.getUid(),2);
             }
             Integer count = shopService.changeShopStatus(rid);
             Integer i = roomService.roomStatus(rid,status);

@@ -1,6 +1,7 @@
 package com.cuit.service;
 
 import com.cuit.pojo.Shop;
+import com.cuit.pojo.ShopCar;
 import com.cuit.util.RegisterResultEnum;
 import org.apache.ibatis.annotations.Param;
 
@@ -43,4 +44,7 @@ public interface ShopService {
 
     //改变店铺状态
     Integer changeShopStatus(Integer rid);
+
+    //供购物车查询的语句
+    Shop queryShopCarDishesBySid(Integer sid);
 }

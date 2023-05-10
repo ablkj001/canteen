@@ -75,4 +75,9 @@
         set status = 2
         where rid = #{rid}
     </update>
+
+    <select id="queryShopCarBySid" resultType="Shop">
+        select * from canteendb.shop
+        where sid = #{sid}
+    </select>
 </mapper>

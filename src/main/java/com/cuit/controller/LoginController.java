@@ -40,17 +40,23 @@ public class LoginController {
     //用户登录
     @RequestMapping("/user/login")
     @ResponseBody
-    public JSONObject Login(@RequestBody Map map,HttpSession session){
+    public JSONObject Login(@RequestBody Map map){
         JSONObject loginResult = new JSONObject();
         String uname = map.get("username").toString();
         String pwd = map.get("password").toString();
-        System.out.println("进入！");
-        User user = new User(uname,pwd);
+        String flag = map.get("flag").toString();
+        User user = new User(uname,pwd,flag);
         LoginResultEnum loginResultEnum = userService.checkLogin(user);
         if (loginResultEnum.equals(LoginResultEnum.USERNAME_UNEXISTED)){
             loginResult.put("message","用户名不存在");
             loginResult.put("code",1);
             return loginResult;
+        }else if(loginResultEnum.equals(LoginResultEnum.USER_BEEN_DELETED)){
+            loginResult.put("message","用户已被删除！");
+            loginResult.put("code",1);
+        } else if(loginResultEnum.equals(LoginResultEnum.PERMISSION_NOT_MATCH)){
+            loginResult.put("message","权限不正确！");
+            loginResult.put("code",1);
         }else if(loginResultEnum.equals(LoginResultEnum.FROZEN_ACCOUNT)){
             loginResult.put("message","账号被冻结！");
             loginResult.put("code",1);
@@ -61,7 +67,6 @@ public class LoginController {
             loginResult.put("message","登录成功");
             loginResult.put("code",0);
             loginResult.put("token",uname);
-            session.setAttribute("loginuser",uname);
         }
         return loginResult;
     }

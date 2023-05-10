@@ -23,7 +23,7 @@ public class RotationServiceImpl implements RotationService {
 
     // 降低等级
     @Override
-    public Integer updateRotationReduce(Integer id) { return rotationMapper.updateRotationPromote(id); }
+    public Integer updateRotationReduce(Integer id) { return rotationMapper.updateRotationReduce(id); }
 
     // 查询等级1
     @Override

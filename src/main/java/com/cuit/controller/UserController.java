@@ -1,6 +1,10 @@
 package com.cuit.controller;
 
+import com.cuit.pojo.Shop;
+import com.cuit.pojo.US;
 import com.cuit.pojo.User;
+import com.cuit.service.ShopService;
+import com.cuit.service.USService;
 import com.cuit.service.UserService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private USService usService;
+
+    @Autowired
+    private ShopService shopService;
 
     //根据用户名或用户ID查询用户
     @RequestMapping("/user/queryNameOrId")
@@ -70,9 +80,19 @@ public class UserController {
         } else {
             Integer status = Integer.parseInt(map.get("status").toString());
             Integer uid = Integer.parseInt(map.get("uid").toString());
-            Integer i = userService.changeUserStatus(uid,status);
-            json.put("data",i);
-            json.put("code",0);
+            User user = userService.queryUserById(uid);
+            if("b".equals(user.getFlag())){
+                Integer i = userService.changeUserStatus(uid,status);
+                US us = usService.queryUS(uid);
+                Shop shop = shopService.queryShopBySid(us.getSid());
+                json.put("data",i);
+                json.put("info",shop);
+                json.put("code",0);
+            }else {
+                Integer i = userService.changeUserStatus(uid,status);
+                json.put("data",i);
+                json.put("code",0);
+            }
         }
         return json;
     }

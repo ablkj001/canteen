@@ -110,4 +110,44 @@ public class DishesServiceImpl implements DishesService {
         Integer i = dishesMapper.changeStatusBySid(sid);
         return i;
     }
+
+    @Override
+    public Integer updateDishesPromote(Integer id) {
+        return dishesMapper.updateDishesPromote(id);
+    }
+
+    @Override
+    public Integer updateDishesReduce(Integer id) {
+        return dishesMapper.updateDishesReduce(id);
+    }
+
+    @Override
+    public List<Dishes> queryFirstGrade(String dname, Integer page) {
+        return dishesMapper.queryFirstGrade(dname,page);
+    }
+
+    @Override
+    public List<Dishes> querySecondGrade(String dname, Integer page, Integer pagesize) {
+        return dishesMapper.querySecondGrade(dname,page,pagesize);
+    }
+
+    @Override
+    public Integer countDishes(String dname, Integer level) {
+        return dishesMapper.countDishe(dname,level);
+    }
+
+    @Override
+    public List<Dishes> randomDishes(Integer n) {
+        return dishesMapper.randomDishes(n);
+    }
+
+    @Override
+    public List<Dishes> querySecondGrade1(String dname, Integer page, Integer pagesize) {
+        return dishesMapper.querySecondGrade1(dname,page,pagesize);
+    }
+
+    @Override
+    public Integer countDishes1(String dname, Integer level) {
+        return dishesMapper.countDishe1(dname,level);
+    }
 }

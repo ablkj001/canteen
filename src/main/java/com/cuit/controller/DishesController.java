@@ -243,4 +243,148 @@ public class DishesController {
         }
         return json;
     }
+
+    //对推荐等级为1的菜品进行晋升
+    @RequestMapping("/dishes/promote")
+    @ResponseBody
+    public JSONObject updateDishesPromote(@RequestBody Map map, @RequestHeader("Authorization") String token){
+        JSONObject json = new JSONObject();
+        if (token == null) {
+            json.put("data", null);
+            json.put("code", 1);
+        } else {
+            // 获取值
+            Integer id = Integer.parseInt(map.get("id").toString());
+
+            // 获取数据条数
+            int count = dishesService.countDishes("",2);
+
+            // 可供前端展示的2级菜品最多有7个
+            if(count > 6){
+                json.put("message", "可供展示的轮播图已到达最大数量限制,请先执行降级操作");
+                json.put("code", 1);
+            } else {
+                // 执行晋升操作
+                Integer result = dishesService.updateDishesPromote(id);
+
+                // 设置返回值
+                if (result > 0) {
+                    json.put("message", "推荐等级晋升成功！");
+                    json.put("code", 0);
+                } else {
+                    json.put("message", "推荐等级晋升失败！");
+                    json.put("code", 1);
+                }
+            }
+        }
+        return json;
+    }
+
+    //菜品推介降级
+    @RequestMapping("/dishes/reduce")
+    @ResponseBody
+    public JSONObject updateDishesReduce(@RequestBody Map map, @RequestHeader("Authorization") String token){
+        JSONObject json = new JSONObject();
+        if (token == null) {
+            json.put("data", null);
+            json.put("code", 1);
+        } else {
+            // 获取值
+            Integer id = Integer.parseInt(map.get("id").toString());
+
+            // 执行降级操作
+            Integer result = dishesService.updateDishesReduce(id);
+
+            // 设置返回值
+            if (result > 0) {
+                json.put("message", "推荐等级降级成功！");
+                json.put("code", 0);
+            } else {
+                json.put("message", "推荐等级降级失败！");
+                json.put("code", 1);
+            }
+        }
+        return json;
+    }
+
+    //查询推介等级为1的菜品信息
+    @RequestMapping("/dishes/first")
+    @ResponseBody
+    public JSONObject queryFirstGrade(@RequestBody Map map, @RequestHeader("Authorization") String token){
+        JSONObject json = new JSONObject();
+        if (token == null) {
+            json.put("data", null);
+            json.put("code", 1);
+        } else {
+
+            // 获取菜品名
+            String dname = map.get("dname").toString();
+
+            // 页数
+            Integer page = Integer.parseInt(map.get("page").toString());
+
+            // 执行查询操作
+            List<Dishes> dishes = dishesService.queryFirstGrade(dname,page);
+
+            // 获取数据条数
+            int count = dishesService.countDishes(dname,1);
+
+            // 设置返回值
+            json.put("data", dishes);
+            json.put("count", count);
+            json.put("code", 0);
+        }
+        return json;
+    }
+
+    //根据菜品名模糊查询推荐等级为2的菜品,至多7个
+    @RequestMapping("/dishes/second")
+    @ResponseBody
+    public JSONObject querySecondGrade(@RequestBody Map map, @RequestHeader("Authorization") String token) {
+        JSONObject json = new JSONObject();
+        if (token == null) {
+            json.put("data", null);
+            json.put("code", 1);
+        } else {
+
+            // 获取菜品名
+            String dname = map.get("dname").toString();
+
+            // 获取页数
+            Integer page = Integer.parseInt(map.get("page").toString());
+
+            // 获取页数大小
+            Integer pagesize = Integer.parseInt(map.get("pagesize").toString());
+
+            // 返回列表
+            List<Dishes> dishes;
+
+            // 获取数据条数
+            int count = dishesService.countDishes(dname,2);
+
+            if (count == 0){
+                //一个等级为2的菜品都没有则随机返回7个菜品
+                //执行查询操作
+                dishes = dishesService.randomDishes(7);
+                count = 7;
+                json.put("code", 1);
+            }else if(pagesize == 4){
+                //否则返回等级为2的
+                //执行查询操作
+                dishes = dishesService.querySecondGrade1(dname,page,pagesize);
+                count = dishesService.countDishes1(dname,2);
+                json.put("code", 2);
+            } else {
+                //如果推介的菜品数量不足7个时剩余的菜品则随机推介
+                dishes = dishesService.querySecondGrade(dname,page,pagesize);
+                Integer m = 7 - count;
+                List<Dishes> dishes1 = dishesService.randomDishes(m);
+                dishes.addAll(dishes1);
+                json.put("code",0);
+            }
+            json.put("data", dishes);
+            json.put("count", count);
+        }
+        return json;
+    }
 }

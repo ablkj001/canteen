@@ -36,7 +36,7 @@ public interface UserMapper {
     //获取用户总数
     Integer countUser();
 
-    //分页获取不包含管理员自身的用户列表
+    //分页获取不包含管理员自身的用户列表且不包含已经被删除的用户
     List<User> queryUserListByPage(@Param("page") Integer page);
 
     //改变用户的状态

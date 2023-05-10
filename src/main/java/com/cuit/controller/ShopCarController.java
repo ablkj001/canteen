@@ -118,7 +118,7 @@ public class ShopCarController {
             List<ShopCar> shopCars = shopCarService.queryShopcarByUid(uid);
             List<SC> scs = new ArrayList<>();
             for (ShopCar shopCar : shopCars){
-                String sname = shopService.queryShopBySid(shopCar.getSid()).getSname();
+                String sname = shopService.queryShopCarDishesBySid(shopCar.getSid()).getSname();
                 Dishes dishes = dishesService.queryDishesByDid(shopCar.getDid());
                 String dname = dishes.getDname();
                 String dimage = dishes.getDimage();

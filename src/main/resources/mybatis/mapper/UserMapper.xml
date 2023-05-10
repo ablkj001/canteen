@@ -39,12 +39,12 @@
 
     <select id="countUser" resultType="int">
         select count(*) from canteendb.user
-        where flag != 'a'
+        where flag != 'a' and status != 2
     </select>
 
     <select id="queryUserListByPage" resultType="User">
-        select * from user
-        where flag != 'a'
+        select * from canteendb.user
+        where status != 2 and flag != 'a'
         limit ${6*(page -1)},6
     </select>
     

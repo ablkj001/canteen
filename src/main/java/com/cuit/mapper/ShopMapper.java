@@ -1,6 +1,7 @@
 package com.cuit.mapper;
 
 import com.cuit.pojo.Shop;
+import com.cuit.pojo.ShopCar;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -46,4 +47,7 @@ public interface ShopMapper {
 
     //删除食堂后改变店铺的状态
     Integer changeShopStatus(@Param("rid") Integer rid);
+
+    //供购物车查询的语句
+    Shop queryShopCarBySid(@Param("sid") Integer sid);
 }

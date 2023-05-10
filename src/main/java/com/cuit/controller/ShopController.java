@@ -88,6 +88,10 @@ public class ShopController {
             String manager = map.get("manager").toString();
             String tel = map.get("tel").toString();
             Integer status = Integer.parseInt(map.get("status").toString());
+            if(status == 2){
+                US us = usService.queryUSBySid(sid);
+                json.put("info",us.getUid());
+            }
             //首先应获取原店铺的状态
             Shop shop = shopService.queryShopBySid(sid);
             //count用于计算改变的数据条数
