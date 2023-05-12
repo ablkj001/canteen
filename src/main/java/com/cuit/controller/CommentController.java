@@ -110,6 +110,14 @@ public class CommentController {
             Integer keyword = Integer.parseInt(map.get("keyword").toString());
             Integer page = Integer.parseInt(map.get("page").toString());
             List<Comment> comments = commentService.queryCommentByUidAndDid(page,keyword);
+            for (Comment comment:comments){
+                Integer uid1 = comment.getUid();
+                String uname = userService.queryUserById(uid1).getUname();
+                Integer did = comment.getDid();
+                String dname = dishesService.queryDishesByDid(did).getDname();
+                comment.setUname(uname);
+                comment.setDname(dname);
+            }
             Integer count = commentService.countQueryComment(keyword);
             json.put("count",count);
             json.put("data",comments);

@@ -92,8 +92,8 @@
     <!--  编辑菜品推荐等级为2  -->
     <update id="updateDishesPromote" parameterType="Dishes">
         update dishes
-        set dishelevel = 2 and status != 1
-        where did = #{did}
+        set dishelevel = 2
+        where did = #{did} and status != 1
     </update>
 
     <!--  编辑推荐等级清空  -->

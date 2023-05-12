@@ -2,15 +2,17 @@ spring:
   thymeleaf:
     cache: false
     encoding: UTF-8
-  mvc:
-    static-path-pattern: /static/**
   datasource:
     username: root
     url: jdbc:mysql://localhost:3306/canteendb?serverTimezone=CTT&useUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: 123456
   jackson:
+    time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      # Date返回前端转时间戳 但不能解决LocalDateTime转时间戳（JacksonCustomizerConfig类解决）
+      write-dates-as-timestamps: true
 
 #mybatis整合
 mybatis:
